@@ -1,4 +1,2 @@
 # Java-Script-game
-a rpg game in js.
-
-Hello
+A 2D Action RPG-Game in JS.
