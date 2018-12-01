@@ -1,4 +1,6 @@
 # Java-Script-game
 a rpg game in js.
 
-Hello 
+Hello
+
+Hej jag heter viktor vad heter du?
