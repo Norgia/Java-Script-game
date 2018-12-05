@@ -153,26 +153,78 @@ hero.update = function(dt) {
 
 
 class enemy extends character {
-
+    constructor(x, y, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
+        super(x, y, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
+    }
+    draw() {
+        super.draw();
+    }
+    update(dt) {
+        super.updateImages();
+        super.animate();
+    }
 }
 
 class orc extends enemy {
-    constructor(x, y, scale, hp, dmg) {
-        super(x, y, width, height, images, flippedImages, imagesDmg, flippedImagesDmg, scale, hp);
-        this.dmg = dmg;
-        this.idle = [];
-        this.walking = [];
+    constructor(x, y) {
+        super(x, y, big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
+        this.trolling = 0;
+        this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
+        this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length -1)];
     }
 
     draw() {
         super.draw();
     }
-
     update(dt) {
-
-        super.updateImages();
-        super.animate();
+        this.trolling++;
+        if(this.trolling > Math.random()*100000) {
+            this.trolling = 0;
+            this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length - 1)];
+            
+        }
+        switch(this.dir) {
+            case "NONE":
+                this.move.none(this);
+            break;
+            case "RIGHT":
+                this.move.right(dt, this);
+            break;
+            case "LEFT":
+                this.move.left(dt, this);
+            break;
+            case "UP":
+                this.move.up(dt, this);
+            break;
+            case "DOWN":
+                this.move.down(dt, this);
+            break;
+            case "LU":
+                this.move.left(dt, this);
+                this.move.up(dt, this);
+            break;
+            case "LD":
+                this.move.left(dt, this);
+                this.move.down(dt, this);
+            break;
+            case "RU":
+                this.move.right(dt, this);
+                this.move.up(dt, this);
+            break;
+            case "RD":
+                this.move.right(dt, this);
+                this.move.down(dt, this);
+            break;
+        }
+        super.update(dt);
     }
+    
+}
+
+for(let i = 0; i < 30; i++) {
+    x = Math.random() * window.innerWidth;
+    y = Math.random() * window.innerHeight;
+    physicalObjects.push(new orc(x, y));
 }
 
 
