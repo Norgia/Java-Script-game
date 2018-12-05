@@ -26,7 +26,7 @@ game.frames = {
 game.loop = {
   lastTime: undefined,
   accumulator: 0,
-  step: 1/60,
+  step: 1/240,
 };
 
 game.physicsEngine = function() {

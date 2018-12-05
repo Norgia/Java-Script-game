@@ -53,19 +53,28 @@ function subImg(spriteSheet, sx, sy, sWidth, sHeight, dx, dy, scale, dWidth, dHe
         this.dy = y;
         this.dWidth = this.firstDWidth * this.scale;
         this.dHeight = this.firstDheight * this.scale;
-        this.scale += 0.001;
     }
 }
 
-function img(img, x, y, width, height) {
+function img(img, dx, dy, dWidth, dHeight, scale) {
     this.img = img;
-    this.dx = x;
-    this.dy = y;
-    this.dWidth = width;
-    this.dHeight = height;
+    this.dx = dx;
+    this.dy = dy;
+    this.firstDWidth = dWidth;
+    this.firstDheight = dHeight;
+    this.scale = scale;
+    this.dWidth = this.firstDWidth*this.scale;
+    this.dHeight = this.firstDheight*this.scale;
 
     this.draw = function() {
-        c.drawImage(this.img, this.dx, this.dy);
+        c.drawImage(this.img, this.dx, this.dy, this.dWidth, this.dHeight);
+    }
+     
+    this.update = function (x, y) {
+         this.dx = x;
+         this.dy = y;
+         this.dWidth = this.firstDWidth * this.scale;
+         this.dHeight = this.firstDheight * this.scale;
     }
 }
 
@@ -80,12 +89,23 @@ addEventListener("resize", () => {
     canvas.height = innerHeight;
 });
 
-function createImgArray(...imageIDs) {
-    let Images = [];
-    for(let i = 0; i < imageIDs.length; i++) {
-        Images.push(new img(imageIDs[i], 0, 0));
+function vector2D(dx, dy) {
+    this.dx = dx;
+    this.dy = dy;
+    this.resultant = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+    this.limitResultant = function() {
+        if(this.resultant == Math.abs(this.dx) || this.resultant == Math.abs(this.dy)) return this;
+        else {
+            let componentX = this.dx/Math.sqrt(2);
+            let componentY = this.dy/Math.sqrt(2);
+            return new vector2D(componentX, componentY);
+        }
     }
-    console.log(Images);
-    
-    return Images;
-}
+
+    this.update = function() {
+        this.resultant = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2));
+        this.dx = 0;
+        this.dy = 0;
+    }
+};
