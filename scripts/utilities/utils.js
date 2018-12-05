@@ -109,3 +109,13 @@ function vector2D(dx, dy) {
         this.dy = 0;
     }
 };
+
+ function sortByProperty(prop, attribute) {
+     return function (a, b) {
+         if (typeof a[prop] == attribute) {
+             return (a[prop] - b[prop]);
+         } else {
+             return ((a[prop] < b[prop]) ? -1 : ((a[prop] > b[prop]) ? 1 : 0));
+         }
+     };
+ };

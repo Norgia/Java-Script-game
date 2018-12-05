@@ -27,12 +27,13 @@ class rectAngle {
 }
 
 class object {
-    constructor(x, y, hX, hY, hWidth, hHeight, width, height) {
+    constructor(x, y, zIndex, hX, hY, hWidth, hHeight, width, height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.gravity = 9.82;
+        this.zIndex = zIndex; 
         this.hitbox = {
             x: hX,
             y: hY,

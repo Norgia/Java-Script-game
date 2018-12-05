@@ -34,6 +34,9 @@ game.physicsEngine = function() {
 }
 
 game.draw = function() {
+  /*physicalObjects.sort(function (a, b) {
+    return a.zIndex - b.zIndex;
+  });*/
   physicalObjects.forEach(object => {
     object.draw();
   });

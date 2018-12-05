@@ -1,6 +1,6 @@
 class character extends object {
-    constructor(x, y, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
-        super(x, y);
+    constructor(x, y, zIndex, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
+        super(x, y, zIndex);
         this.images = this.createImages(images, cols, rows, scale, false);
         this.flippedImages = this.createImages(flippedImages, cols, rows, scale, true);
         this.imagesDmg = this.createImages(imagesDmg, cols, rows, scale, false);
@@ -137,7 +137,7 @@ class character extends object {
 }
     
 
-let hero = new character(window.innerWidth / 2, window.innerHeight / 2, knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 500, 100);
+let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 500, 100);
 
 physicalObjects.push(hero);
 
@@ -167,7 +167,7 @@ class enemy extends character {
 
 class orc extends enemy {
     constructor(x, y) {
-        super(x, y, big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
+        super(x, y, 9, big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
         this.trolling = 0;
         this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
         this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length -1)];
@@ -221,7 +221,7 @@ class orc extends enemy {
     
 }
 
-for(let i = 0; i < 30; i++) {
+for(let i = 0; i < 1000; i++) {
     x = Math.random() * window.innerWidth;
     y = Math.random() * window.innerHeight;
     physicalObjects.push(new orc(x, y));
