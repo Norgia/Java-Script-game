@@ -27,6 +27,32 @@ class rectAngle {
     }
 }
 
+class circle {
+    constructor(x, y, radius, startA, endA, color, fill) {
+        this.x = x;
+        this.y = y;
+        this.startA = startA;
+        this.endA = endA;
+        this.radius = radius;
+        this.color = color;
+        this.fill = fill;
+    }
+    draw() {
+        c.beginPath();
+        c.arc(this.x, this.y, this.radius, this.startA, this.endA, true);
+        if (this.fill) {
+            c.fillStyle = this.color;
+            c.fill();
+        } else {
+            c.strokeStyle = this.color;
+            c.stroke();
+        }
+    }
+    update(dt) {
+        //if (this.chosen) this.x = mouse.x, this.y = mouse.y, mouse.holding = true;
+    }
+}
+
 class object {
     constructor(x, y, zIndex, width, height) {
         this.x = x;

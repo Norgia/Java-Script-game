@@ -33,7 +33,23 @@ class character extends object {
                 self.HP -= enemy.damage.amount;
             }
         };
-        this.direction = "RIGHT";
+        this.indicator = new circle();
+        this.direction = {
+            moving: {
+                RIGHT: false,
+                UP: false,
+                LEFT: false,
+                DOWN: false,
+                reset: function() {
+                    this.RIGHT = false;
+                    this.UP = false;
+                    this.LEFT = false;
+                    this.DOWN = false;
+                },
+            },
+            horizontal: "RIGHT",
+            angle: 0
+        };
         this.movmentVector2D = new vector2D(0, 0);
 
         this.move = {
@@ -43,8 +59,9 @@ class character extends object {
                 self.loopImages = self.idle;
             },
             right: function (dt, self) {
+                self.direction.moving.RIGHT = true;
+                self.direction.horizontal = "RIGHT";
                 this.now = true;
-                this.direction = "RIGHT";
                 self.currentImages = self.images;
                 self.loopImages = self.run;
                 self.movmentVector2D.dx += this.amount;
@@ -52,8 +69,9 @@ class character extends object {
                 self.x += vector.dx * dt;
             },
             left: function (dt, self) {
+                self.direction.moving.LEFT = true;
+                self.direction.horizontal = "LEFT";
                 this.now = true;
-                this.direction = "LEFT";
                 self.currentImages = self.flippedImages;
                 self.loopImages = self.run;
                 self.movmentVector2D.dx -= this.amount;
@@ -61,6 +79,7 @@ class character extends object {
                 self.x += vector.dx * dt;
             },
             up: function (dt, self) {
+                self.direction.moving.UP = true;
                 this.now = true;
                 self.loopImages = self.run;
                 self.movmentVector2D.dy -= this.amount;
@@ -68,6 +87,7 @@ class character extends object {
                 self.y += vector.dy * dt;
             },
             down: function (dt, self) {
+                self.direction.moving.DOWN = true;
                 this.now = true;
                 self.loopImages = self.run;
                 self.movmentVector2D.dy += this.amount;
@@ -83,8 +103,10 @@ class character extends object {
     }
 
     updateImages() {
-        this.width = this.currentFrame.dWidth;
-        this.height = this.currentFrame.dHeight;
+        this.img.width = this.currentFrame.dWidth;
+        this.img.height = this.currentFrame.dHeight;
+        this.center.x = this.currentFrame.dx + this.img.width/2;
+        this.center.y = this.currentFrame.dy + this.img.height/2;
     }
 
     animate(dt) {
@@ -101,9 +123,36 @@ class character extends object {
             this.itarater++;
         }
         this.move.now = false;
+        this.direction.moving.reset(); //FIXA FÖR FIENDE
         this.movmentVector2D.update();
         super.update(dt);
         if (this.currentFrame != undefined) this.currentFrame.update(this.x, this.y);
+    }
+    vision() {
+        let halfQarter = Math.PI / 4;
+        //RIGHT AND UP
+        if (this.direction.moving.RIGHT && this.direction.moving.UP) this.direction.angle = halfQarter;
+        else if (this.direction.moving.RIGHT && this.direction.moving.DOWN) this.direction.angle = -halfQarter;
+        else if (this.direction.moving.UP && !this.direction.moving.LEFT) this.direction.angle = 2 * halfQarter;
+        else if (this.direction.horizontal === "RIGHT" && !this.direction.moving.DOWN) this.direction.angle = 0;
+        
+        //LEFT AND DOWN
+        else if (this.direction.moving.LEFT && this.direction.moving.UP) this.direction.angle = 3 * halfQarter;
+        else if (this.direction.moving.LEFT && this.direction.moving.DOWN) this.direction.angle = 5 * halfQarter;
+        else if (this.direction.moving.DOWN) this.direction.angle = 6 * halfQarter;
+        else if (this.direction.horizontal === "LEFT") this.direction.angle = 4*halfQarter;
+        
+        let a0 = this.direction.angle - Math.PI / 8;
+        let aEnd = this.direction.angle + Math.PI / 8;
+        //this.indicator = new circle(this.center.x, this.center.y, 500, -a0, -aEnd, "rgb(220, 220, 220)", false);
+        
+        for (let angle = this.direction.angle - Math.PI / 8; angle < this.direction.angle + Math.PI / 8; angle += (Math.PI / 8) / 20) {
+            c.beginPath();
+            c.moveTo(this.center.x + 10*Math.cos(-angle), this.center.y + 10*Math.sin(-angle));
+            c.lineTo(this.center.x + 700*Math.cos(-angle), this.center.y + 700*Math.sin(-angle));
+            c.strokeStyle = "rgb(250, 220, 220, 0.3)";
+            c.stroke();
+        }
     }
 
     attack() {
@@ -115,7 +164,7 @@ class character extends object {
     }
 }
     
-let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 500, 100);
+let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 250, 100);
 
 physicalObjects.push(hero);
 
@@ -124,7 +173,8 @@ hero.update = function(dt) {
     if (controller.left && !controller.right) hero.move.left(dt, this);
     if (controller.up && !controller.down)  hero.move.up(dt, this);
     if (controller.down && !controller.up) hero.move.down(dt, this);
-
+    //this.indicator.draw();
+    //this.vision();
     this.updateImages();
     this.animate(dt);
 }
@@ -135,6 +185,7 @@ class enemy extends character {
         super(x, y, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
     }
     draw() {
+        super.vision();
         super.draw();
     }
     update(dt) {
@@ -199,7 +250,7 @@ class orc extends enemy {
     
 }
 
-for(let i = 0; i < 100; i++) {
+for(let i = 0; i < 5; i++) {
     x = Math.random() * window.innerWidth;
     y = Math.random() * window.innerHeight;
     physicalObjects.push(new orc(x, y));
