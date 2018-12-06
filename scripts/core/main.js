@@ -3,43 +3,43 @@ game.start = undefined;
 
 game.init = function() {
   game.start = Date.now();
+  editor.UI.init();
 }
-
-game.frames = {
-  delta: undefined,
-  lastCalledTime: undefined,
-  fps: undefined,
-  update: function () {
-    if (!game.frames.lastCalledTime) {
-      game.frames.lastCalledTime = Date.now();
-      game.frames.fps = 0;
-      return;
-    }
-
-    game.frames.delta = (Date.now() - game.frames.lastCalledTime);
-    game.frames.lastCalledTime = Date.now();
-    game.frames.fps = 1 / (game.frames.delta / 1000);
-    Math.ceil(game.frames.fps);
-  },
-};
 
 game.loop = {
   lastTime: undefined,
   accumulator: 0,
   step: 1/240,
+  fps: 0,
 };
+
+game.utils = {
+  enabled: false,
+  draw: function() {
+    utilityObjects.forEach(object => {
+      object.draw();
+    });
+  },
+  update: function() {
+     utilityObjects.forEach(object => {
+       object.update();
+     });
+     editor.UI.update();
+  }
+}
 
 game.physicsEngine = function() {
   
 }
 
 game.draw = function() {
-  /*physicalObjects.sort(function (a, b) {
+  physicalObjects.sort(function (a, b) {
     return a.zIndex - b.zIndex;
-  });*/
+  });
   physicalObjects.forEach(object => {
     object.draw();
   });
+  if(game.utils.enabled) game.utils.draw();
 }
 
 game.update = function (dt) {
@@ -47,7 +47,7 @@ game.update = function (dt) {
   physicalObjects.forEach(object => {
     object.update(dt);
   });
-  game.frames.update();
+  if (game.utils.enabled) game.utils.update();
 }
 
 game.animate = function(millis) {

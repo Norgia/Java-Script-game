@@ -16,3 +16,5 @@ Resiza sedan bilden 4x i gimp (Gimp --> Bild --> Skala bild... --> x4 på bredd 
 -design individual rooms ☐
 -level editor ☐
 -random algorithm ☐
+
+Example: (https://imgur.com/a/ckR7f3v)

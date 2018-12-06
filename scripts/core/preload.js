@@ -9,3 +9,6 @@ let big_orc = document.getElementById("big_orc");
 let big_orc_flipped = document.getElementById("big_orc_flipped");
 let big_orc_hit = document.getElementById("big_orc_hit");
 let big_orc_flipped_hit = document.getElementById("big_orc_flipped_hit");
+
+//Floor
+let floors = document.getElementById("floors");

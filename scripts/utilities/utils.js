@@ -27,7 +27,11 @@ const colors = ["#42ebf4", "#00cdf2", "#b8ecf9", "#e1f2f7", "#00a1ff"];
 //Objects:
 const mouse = {
     x: innerWidth / 2,
-    y: innerHeight / 2
+    y: innerHeight / 2,
+    width: 0,
+    height: 0,
+    pressed: false,
+    holding: false
 };
 
 function subImg(spriteSheet, sx, sy, sWidth, sHeight, dx, dy, scale, dWidth, dHeight) {
@@ -78,6 +82,35 @@ function img(img, dx, dy, dWidth, dHeight, scale) {
     }
 }
 
+function vector2D(dx, dy) {
+    this.dx = dx;
+    this.dy = dy;
+    this.resultant = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+    this.limitResultant = function () {
+        if (this.resultant == Math.abs(this.dx) || this.resultant == Math.abs(this.dy)) return this;
+        else {
+            let componentX = this.dx / Math.sqrt(2);
+            let componentY = this.dy / Math.sqrt(2);
+            return new vector2D(componentX, componentY);
+        }
+    }
+
+    this.update = function () {
+        this.resultant = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2));
+        this.dx = 0;
+        this.dy = 0;
+    }
+}
+
+function colision(object1, object2) {
+    if (object1.x < object2.x + object2.width && object1.x + object1.width > object2.x &&
+        object1.y < object2.y + object2.height && object1.y + object1.height > object2.y) {
+        return true;
+    }
+    else return false;
+}
+
 // Event Listeners:
 addEventListener("mousemove", event => {
     mouse.x = event.clientX;
@@ -89,33 +122,11 @@ addEventListener("resize", () => {
     canvas.height = innerHeight;
 });
 
-function vector2D(dx, dy) {
-    this.dx = dx;
-    this.dy = dy;
-    this.resultant = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-
-    this.limitResultant = function() {
-        if(this.resultant == Math.abs(this.dx) || this.resultant == Math.abs(this.dy)) return this;
-        else {
-            let componentX = this.dx/Math.sqrt(2);
-            let componentY = this.dy/Math.sqrt(2);
-            return new vector2D(componentX, componentY);
+function makeFloor() {
+    let padding = 32;
+    for(let x = 200; x < window.innerWidth - 220; x+=padding) {
+        for(let y = 200; y < window.innerHeight - 220; y+=padding) {
+            physicalObjects.push(new floor(x, y, randomIntFromRange(0, 7)));
         }
     }
-
-    this.update = function() {
-        this.resultant = Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2));
-        this.dx = 0;
-        this.dy = 0;
-    }
-};
-
- function sortByProperty(prop, attribute) {
-     return function (a, b) {
-         if (typeof a[prop] == attribute) {
-             return (a[prop] - b[prop]);
-         } else {
-             return ((a[prop] < b[prop]) ? -1 : ((a[prop] > b[prop]) ? 1 : 0));
-         }
-     };
- };
+}

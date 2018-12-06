@@ -5,8 +5,6 @@ class character extends object {
         this.flippedImages = this.createImages(flippedImages, cols, rows, scale, true);
         this.imagesDmg = this.createImages(imagesDmg, cols, rows, scale, false);
         this.flippedImagesDmg = this.createImages(flippedImagesDmg, cols, rows, scale, true);
-        this.width = this.images[0].dWidth;
-        this.height = this.images[0].dHeight;
         this.center = {
             x: this.x + this.width/2,
             y: this.y + this.height/2
@@ -16,6 +14,8 @@ class character extends object {
         this.run = run;
         this.loopImages = this.idle;
         this.currentFrame = this.currentImages[this.loopImages[0]];
+        this.width = this.currentFrame.dWidth;
+        this.height = this.currentFrame.dHeight;
         this.loopIndex = undefined;
         this.itarater = 0;
         this.frameCount = 0;
@@ -77,40 +77,17 @@ class character extends object {
         };
     }
 
-    createImages(spriteSheet, amountX, amountY, scale, reverse) {
-        let Images = [];
-        
-        for (let y = 0; y < spriteSheet.height; y += spriteSheet.height / amountY) {
-            if(!reverse) {
-                for (let x = 0; x < spriteSheet.width; x += spriteSheet.width / amountX) {
-                    Images.push(new subImg(spriteSheet, x, y, spriteSheet.width / amountX, spriteSheet.height / amountY, this.x, this.y, scale, spriteSheet.width / amountX, spriteSheet.height / amountY));
-                }
-            } else {
-                for (let x = spriteSheet.width; x > 0; x -= spriteSheet.width / amountX) {
-                    Images.push(new subImg(spriteSheet, x, y, -spriteSheet.width / amountX, spriteSheet.height / amountY, this.x, this.y, scale, spriteSheet.width / amountX, spriteSheet.height / amountY));
-                }
-            }
-        }
-        return Images;
-    }
-
     draw() {
         if(this.currentFrame != undefined) this.currentFrame.draw();
+        super.draw();
     }
 
     updateImages() {
-        this.width = this.images[0].dWidth;
-        this.height = this.images[0].dHeight;
-       
-        for(let i = 0; i < this.images.length; i++) {
-            this.images[i].update(this.x, this.y);
-            this.flippedImages[i].update(this.x, this.y);
-            this.imagesDmg[i].update(this.x, this.y);
-            this.flippedImagesDmg[i].update(this.x, this.y);
-        }
+        this.width = this.currentFrame.dWidth;
+        this.height = this.currentFrame.dHeight;
     }
 
-    animate() {
+    animate(dt) {
         this.frameCount++;
 
         if(this.frameCount > this.delayCount) {
@@ -125,6 +102,8 @@ class character extends object {
         }
         this.move.now = false;
         this.movmentVector2D.update();
+        super.update(dt);
+        if (this.currentFrame != undefined) this.currentFrame.update(this.x, this.y);
     }
 
     attack() {
@@ -136,7 +115,6 @@ class character extends object {
     }
 }
     
-
 let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 500, 100);
 
 physicalObjects.push(hero);
@@ -148,7 +126,7 @@ hero.update = function(dt) {
     if (controller.down && !controller.up) hero.move.down(dt, this);
 
     this.updateImages();
-    this.animate();
+    this.animate(dt);
 }
 
 
@@ -221,7 +199,7 @@ class orc extends enemy {
     
 }
 
-for(let i = 0; i < 1000; i++) {
+for(let i = 0; i < 100; i++) {
     x = Math.random() * window.innerWidth;
     y = Math.random() * window.innerHeight;
     physicalObjects.push(new orc(x, y));

@@ -15,6 +15,14 @@ document.onkeyup = function (evt) {
     togglekey(evt.keyCode, false);
 }
 
+document.onmousedown = function() {
+    mouse.pressed = true;
+}
+
+document.onmouseup = function () {
+    mouse.pressed = false;
+}
+
 let controller = {
     left: false,
     right: false,
