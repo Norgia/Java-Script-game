@@ -28,7 +28,7 @@ class rectAngle {
 }
 
 class circle {
-    constructor(x, y, radius, startA, endA, color, fill) {
+    constructor(x, y, radius, startA, endA, color, fill, blur) {
         this.x = x;
         this.y = y;
         this.startA = startA;
@@ -36,9 +36,11 @@ class circle {
         this.radius = radius;
         this.color = color;
         this.fill = fill;
+        this.blur = blur;
     }
     draw() {
         c.beginPath();
+        if (this.blur) c.filter = "blur(10px)";
         c.arc(this.x, this.y, this.radius, this.startA, this.endA, true);
         if (this.fill) {
             c.fillStyle = this.color;
@@ -47,6 +49,7 @@ class circle {
             c.strokeStyle = this.color;
             c.stroke();
         }
+        c.filter = "none";
     }
     update(dt) {
         //if (this.chosen) this.x = mouse.x, this.y = mouse.y, mouse.holding = true;

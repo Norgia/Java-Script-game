@@ -33,7 +33,8 @@ class character extends object {
                 self.HP -= enemy.damage.amount;
             }
         };
-        this.indicator = new circle();
+        this.periphery = new circle();
+        this.perceptonRadius = 300;
         this.direction = {
             moving: {
                 RIGHT: false,
@@ -97,11 +98,6 @@ class character extends object {
         };
     }
 
-    draw() {
-        if(this.currentFrame != undefined) this.currentFrame.draw();
-        super.draw();
-    }
-
     updateImages() {
         this.img.width = this.currentFrame.dWidth;
         this.img.height = this.currentFrame.dHeight;
@@ -123,36 +119,42 @@ class character extends object {
             this.itarater++;
         }
         this.move.now = false;
-        this.direction.moving.reset(); //FIXA FÖR FIENDE
         this.movmentVector2D.update();
         super.update(dt);
         if (this.currentFrame != undefined) this.currentFrame.update(this.x, this.y);
     }
+    updateAngle() {
+         let halfQarter = Math.PI / 4;
+         //RIGHT AND UP
+         if (this.direction.moving.RIGHT && this.direction.moving.UP) this.direction.angle = halfQarter;
+         else if (this.direction.moving.RIGHT && this.direction.moving.DOWN) this.direction.angle = -halfQarter;
+         else if (this.direction.moving.UP && !this.direction.moving.LEFT) this.direction.angle = 2 * halfQarter;
+         else if (this.direction.horizontal === "RIGHT" && !this.direction.moving.DOWN) this.direction.angle = 0;
+
+         //LEFT AND DOWN
+         else if (this.direction.moving.LEFT && this.direction.moving.UP) this.direction.angle = 3 * halfQarter;
+         else if (this.direction.moving.LEFT && this.direction.moving.DOWN) this.direction.angle = 5 * halfQarter;
+         else if (this.direction.moving.DOWN) this.direction.angle = 6 * halfQarter;
+         else if (this.direction.horizontal === "LEFT") this.direction.angle = 4 * halfQarter;
+    }
+
     vision() {
-        let halfQarter = Math.PI / 4;
-        //RIGHT AND UP
-        if (this.direction.moving.RIGHT && this.direction.moving.UP) this.direction.angle = halfQarter;
-        else if (this.direction.moving.RIGHT && this.direction.moving.DOWN) this.direction.angle = -halfQarter;
-        else if (this.direction.moving.UP && !this.direction.moving.LEFT) this.direction.angle = 2 * halfQarter;
-        else if (this.direction.horizontal === "RIGHT" && !this.direction.moving.DOWN) this.direction.angle = 0;
-        
-        //LEFT AND DOWN
-        else if (this.direction.moving.LEFT && this.direction.moving.UP) this.direction.angle = 3 * halfQarter;
-        else if (this.direction.moving.LEFT && this.direction.moving.DOWN) this.direction.angle = 5 * halfQarter;
-        else if (this.direction.moving.DOWN) this.direction.angle = 6 * halfQarter;
-        else if (this.direction.horizontal === "LEFT") this.direction.angle = 4*halfQarter;
-        
+        this.updateAngle();
         let a0 = this.direction.angle - Math.PI / 8;
         let aEnd = this.direction.angle + Math.PI / 8;
-        //this.indicator = new circle(this.center.x, this.center.y, 500, -a0, -aEnd, "rgb(220, 220, 220)", false);
-        
-        for (let angle = this.direction.angle - Math.PI / 8; angle < this.direction.angle + Math.PI / 8; angle += (Math.PI / 8) / 20) {
+        //c.filter = 'blur(4px)';
+        c.strokeStyle = "rgb(255, 100, 100, 0.02)";
+        //this.periphery = new circle(this.center.x, this.center.y, this.perceptonRadius, -a0, -aEnd, "rgb(250, 220, 220, 0.3)", false, false);
+        //this.periphery.draw();
+        c.lineWidth = 30;
+        c.lineCap = "round";
+        for (let angle = a0; angle <= aEnd; angle += (Math.PI / 8) / 10) {
             c.beginPath();
             c.moveTo(this.center.x + 10*Math.cos(-angle), this.center.y + 10*Math.sin(-angle));
-            c.lineTo(this.center.x + 700*Math.cos(-angle), this.center.y + 700*Math.sin(-angle));
-            c.strokeStyle = "rgb(250, 220, 220, 0.3)";
+            c.lineTo(this.center.x + this.perceptonRadius*Math.cos(-angle), this.center.y + this.perceptonRadius*Math.sin(-angle));
             c.stroke();
         }
+        //c.filter = "none";
     }
 
     attack() {
@@ -168,15 +170,38 @@ let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, knig
 
 physicalObjects.push(hero);
 
+hero.draw = function() {
+    //hero.light();
+    this.direction.moving.reset();
+    if (this.currentFrame != undefined) this.currentFrame.draw();
+}
+
 hero.update = function(dt) {
     if (controller.right && !controller.left) hero.move.right(dt, this);  
     if (controller.left && !controller.right) hero.move.left(dt, this);
     if (controller.up && !controller.down)  hero.move.up(dt, this);
     if (controller.down && !controller.up) hero.move.down(dt, this);
-    //this.indicator.draw();
-    //this.vision();
     this.updateImages();
     this.animate(dt);
+}
+
+hero.light = function() {
+    this.updateAngle();
+    this.perceptonRadius = 40;
+    let a0 = 0;
+    let aEnd =2*Math.PI;
+    //c.filter = 'blur(4px)';
+    c.strokeStyle = "rgb(150, 150, 0, 0.1)";
+    //this.periphery = new circle(this.center.x, this.center.y, this.perceptonRadius, -a0, -aEnd, "rgb(250, 220, 220, 0.3)", false, false);
+    //this.periphery.draw();
+    c.lineWidth = 30;
+    c.lineCap = "round";
+    for (let angle = a0; angle <= aEnd; angle += (Math.PI / 8) / 2) {
+        c.beginPath();
+        c.moveTo(this.center.x + 10 * Math.cos(-angle), this.center.y + 10 * Math.sin(-angle));
+        c.lineTo(this.center.x + this.perceptonRadius * Math.cos(-angle), this.center.y + this.perceptonRadius * Math.sin(-angle));
+        c.stroke();
+    }
 }
 
 
@@ -186,7 +211,8 @@ class enemy extends character {
     }
     draw() {
         super.vision();
-        super.draw();
+        this.direction.moving.reset();
+        if (this.currentFrame != undefined) this.currentFrame.draw();
     }
     update(dt) {
         super.updateImages();
@@ -250,7 +276,7 @@ class orc extends enemy {
     
 }
 
-for(let i = 0; i < 5; i++) {
+for(let i = 0; i < 10; i++) {
     x = Math.random() * window.innerWidth;
     y = Math.random() * window.innerHeight;
     physicalObjects.push(new orc(x, y));
