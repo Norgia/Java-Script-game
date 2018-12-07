@@ -282,12 +282,21 @@ for(let i = 0; i < 10; i++) {
     physicalObjects.push(new orc(x, y));
 }
 
-
-
 class weapon extends object {
-    constructor(x, y, width, height, img, dmg) {
+    constructor(x, y, owner, width, height, img, flippedImg, dmg) {
         super(x, y, width, height);
-        this.img = img;
+        this.owner = owner;
+        this.image = img;
+        this.flippedImg = flippedImg;
+        this.currentImage = this.image;
+        this.angle = Math.random()*10;
+        this.dAlpha = 0.03
+        this.throwing = false;
+        this.swinging = false;
+        this.center = {
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+        };
         this.damage = {
             amount: dmg,
             deal: function (object) {
@@ -296,14 +305,54 @@ class weapon extends object {
         };
     }
     draw() {
-
+        if(this.throwing) {
+            c.save();
+            c.translate(this.center.x, this.center.y);
+            c.rotate(this.angle);
+            c.drawImage(this.currentImage, -(this.currentImage.width/2), -(this.currentImage.height), this.currentImage.width, this.currentImage.height);
+            c.restore();
+        }
+        else {
+            c.drawImage(this.currentImage, this.center.x, this.center.y, this.currentImage.width, this.currentImage.height);
+        }
     }
 
-    use() {
-
+    swing() {
+        this.swinnging = true;
+    }
+    throw (x, y) {
+        this.throwing = true;
+        this.angle+=this.dAlpha*2;
     }
 
     update(dt) {
-
+        if (this.owner == undefined) this.angle += this.dAlpha, this.center.y += Math.sin(this.angle)/3;
+        else {
+            this.x = this.owner.x;
+            this.y = this.owner.y;
+            this.center.x = this.owner.center.x - 5;
+            this.center.y = this.owner.center.y - 10;
+            
+            if (this.owner.direction.horizontal === "RIGHT" && !this.throwing) this.zIndex = this.owner.zIndex + 1, this.angle += this.dAlpha;
+            if (this.owner.direction.horizontal === "LEFT" && !this.throwing) this.zIndex = this.owner.zIndex - 1, this.angle -= this.dAlpha;
+        }
     }
+}
+
+class anime_sword extends weapon {
+    constructor(x, y, owner) {
+        super(x, y, owner, weapon_anime_sword.width, weapon_anime_sword.height, weapon_anime_sword, weapon_anime_sword, 10);
+    }
+
+    draw() {
+        super.draw();
+    }
+
+    update(dt) {
+        super.update(dt);
+    }
+}
+
+for(let i = 0; i < 10; i++) {
+    physicalObjects.push(new anime_sword(hero.center.x, hero.center.y, undefined));
 }

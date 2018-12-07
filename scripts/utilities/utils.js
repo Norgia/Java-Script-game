@@ -51,6 +51,9 @@ function subImg(spriteSheet, sx, sy, sWidth, sHeight, dx, dy, scale, dWidth, dHe
     this.draw = function () {
         c.drawImage(this.spriteSheet, this.sx, this.sy, this.sWidth, this.sHeight, this.dx, this.dy, this.dWidth, this.dHeight);
     }
+    this.rotationDraw = function (x, y) {
+        c.drawImage(this.spriteSheet, this.sx, this.sy, this.sWidth, this.sHeight, x, y, this.dWidth, this.dHeight);
+    }
 
     this.update = function (x, y) {
         this.dx = x;

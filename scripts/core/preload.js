@@ -12,3 +12,6 @@ let big_orc_flipped_hit = document.getElementById("big_orc_flipped_hit");
 
 //Floor
 let floors = document.getElementById("floors");
+
+//weapons
+let weapon_anime_sword = document.getElementById("weapon_anime_sword");
