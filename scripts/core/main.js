@@ -14,7 +14,7 @@ game.loop = {
 };
 
 game.utils = {
-  enabled: false,
+  enabled: true,
   draw: function() {
     utilityObjects.forEach(object => {
       object.draw();

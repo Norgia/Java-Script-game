@@ -57,7 +57,7 @@ class circle {
 }
 
 class object {
-    constructor(x, y, zIndex, width, height) {
+    constructor(x, y, zIndex, width, height, hitbox_color) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -65,15 +65,15 @@ class object {
         this.gravity = 9.82;
         this.chosen = false;
         this.zIndex = zIndex;
-        this.hitbox = new rectAngle(undefined, undefined, undefined, undefined, "black", false);
+        this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, hitbox_color, false);
     }
     draw(){
         this.hitbox.draw();
     }
     update(dt) {
         if (this.chosen) {
-            this.x = mouse.x - this.width/2;
-            this.y = mouse.y - this.height/2;
+            this.x = mouse.x;
+            this.y = mouse.y;
             mouse.holding = true;
         }
     }
@@ -93,25 +93,46 @@ class object {
         }
         return Images;
     }
+    updateImgHitbox(imageFilename, scale) {
+        let fullname = imageFilename + ".png";
+        this.hitbox.x = this.x + hitboxArray[0][fullname].x * scale;
+        this.hitbox.y = this.y + hitboxArray[0][fullname].y * scale;
+        this.hitbox.width = hitboxArray[0][fullname].width * scale;
+        this.hitbox.height = hitboxArray[0][fullname].height * scale; 
+    }
+    updateSheetHitbox(imageFilename, scale) {
+        let fullname = imageFilename + ".png";
+        fullname = this.itarater + "." + fullname;
+        this.hitbox.x = this.x + hitboxArray[0][fullname].x*scale;
+        this.hitbox.y = this.y + hitboxArray[0][fullname].y*scale;
+        this.hitbox.width = hitboxArray[0][fullname].width*scale;
+        this.hitbox.height = hitboxArray[0][fullname].height*scale;
+    }
 }
 
-class tile extends object {
-    constructor(img, x, y, zIndex, width, height, cols, rows, scale, type) {
-        super(x, y, zIndex, width, height);
+class static_tile extends object {
+    constructor(img, hitbox_imageFilename, hibox_scale, x, y, zIndex, width, height, cols, rows, scale, type) {
+        super(x, y, zIndex, width, height, "blue");
         this.images = this.createImages(img, cols, rows, scale, false);
         this.type = type;
+        this.hibox_scale = hibox_scale;
+        this.hitbox_imageFilename = hitbox_imageFilename;
+        this.itarater = 0;
     }
     draw() {
         this.images[this.type].draw();
+        super.draw();
     }
     update(dt) {
         this.images[this.type].update(this.x, this.y);
+        super.update(dt);
+        this.updateSheetHitbox(this.hitbox_imageFilename, this.hibox_scale);
     }
 }
 
-class floor extends tile {
+class floor extends static_tile {
     constructor(x, y, type) {
-        super(floors, x, y, 0, 100, 100, 13, 1, 0.5, type);
+        super(floors, "floor(13x1)", 0.5, x, y, 0, 100, 100, 13, 1, 0.5, type);
     }
     draw() {
         super.draw();
@@ -120,3 +141,4 @@ class floor extends tile {
         super.update();
     }
 }
+

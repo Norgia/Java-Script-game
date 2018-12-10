@@ -16,9 +16,9 @@ editor.UI = {
             y += padding
             incer++;
         }
-        //utilityObjects.push(this.mouseRect);
+        utilityObjects.push(this.mouseRect);
     },
-    update: function() {
+    update: function(dt) {
         if (!mouse.holding && mouse.pressed) {
             if(editor.UI.setStartPoint) {
                 this.mouseRectSX = mouse.x;
@@ -32,7 +32,7 @@ editor.UI = {
             this.mouseRect.draw();
         }
         physicalObjects.forEach(object => {
-            if (!mouse.holding && colision(mouse, object)) object.chosen = true;
+            if (!mouse.holding && colision(mouse, object.hitbox)) object.chosen = true;
             if (!mouse.pressed) {
                 object.chosen = false;
                 mouse.holding = false; 
@@ -46,4 +46,5 @@ editor.UI = {
         
     }
 };
+
 makeFloor();

@@ -1,10 +1,13 @@
 class character extends object {
-    constructor(x, y, zIndex, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
-        super(x, y, zIndex);
+    constructor(x, y, zIndex, hitbox_imageFilename, hitbox_color, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
+        super(x, y, zIndex, undefined, undefined, hitbox_color);
+        this.hitbox_imageFilename = hitbox_imageFilename;
+        this.scale = scale;
         this.images = this.createImages(images, cols, rows, scale, false);
         this.flippedImages = this.createImages(flippedImages, cols, rows, scale, true);
         this.imagesDmg = this.createImages(imagesDmg, cols, rows, scale, false);
         this.flippedImagesDmg = this.createImages(flippedImagesDmg, cols, rows, scale, true);
+        
         this.center = {
             x: this.x + this.width/2,
             y: this.y + this.height/2
@@ -13,11 +16,11 @@ class character extends object {
         this.idle = idle;
         this.run = run;
         this.loopImages = this.idle;
+        this.itarater = 0;
         this.currentFrame = this.currentImages[this.loopImages[0]];
         this.width = this.currentFrame.dWidth;
         this.height = this.currentFrame.dHeight;
         this.loopIndex = undefined;
-        this.itarater = 0;
         this.frameCount = 0;
         this.delayCount = 20;
         this.HP = hp;
@@ -99,10 +102,12 @@ class character extends object {
     }
 
     updateImages() {
-        this.img.width = this.currentFrame.dWidth;
-        this.img.height = this.currentFrame.dHeight;
-        this.center.x = this.currentFrame.dx + this.img.width/2;
-        this.center.y = this.currentFrame.dy + this.img.height/2;
+        if (this.currentFrame != undefined) {
+            this.img.width = this.currentFrame.dWidth;
+            this.img.height = this.currentFrame.dHeight;
+            this.center.x = this.currentFrame.dx + this.img.width/2;
+            this.center.y = this.currentFrame.dy + this.img.height/2;
+        }
     }
 
     animate(dt) {
@@ -120,6 +125,7 @@ class character extends object {
         }
         this.move.now = false;
         this.movmentVector2D.update();
+        this.updateSheetHitbox();
         super.update(dt);
         if (this.currentFrame != undefined) this.currentFrame.update(this.x, this.y);
     }
@@ -138,6 +144,11 @@ class character extends object {
          else if (this.direction.horizontal === "LEFT") this.direction.angle = 4 * halfQarter;
     }
 
+    updateSheetHitbox() {
+        super.draw();
+        super.updateSheetHitbox(this.hitbox_imageFilename, this.scale);
+    }
+
     vision() {
         this.updateAngle();
         let a0 = this.direction.angle - Math.PI / 8;
@@ -154,6 +165,7 @@ class character extends object {
             c.lineTo(this.center.x + this.perceptonRadius*Math.cos(-angle), this.center.y + this.perceptonRadius*Math.sin(-angle));
             c.stroke();
         }
+        c.lineWidth = 1;
         //c.filter = "none";
     }
 
@@ -166,12 +178,14 @@ class character extends object {
     }
 }
     
-let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 250, 100);
+let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, "knight_red(9x1)", "green", knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 250, 100);
 
 physicalObjects.push(hero);
 
 hero.draw = function() {
-    //hero.light();
+    c.beginPath()
+    c.rect(this.x, this.y, this.img.width, this.img.height);
+    c.stroke();
     this.direction.moving.reset();
     if (this.currentFrame != undefined) this.currentFrame.draw();
 }
@@ -206,8 +220,8 @@ hero.light = function() {
 
 
 class enemy extends character {
-    constructor(x, y, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
-        super(x, y, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
+    constructor(x, y, zIndex, hitbox_imageFilename, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
+        super(x, y, zIndex, hitbox_imageFilename, "red", images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
     }
     draw() {
         super.vision();
@@ -216,18 +230,17 @@ class enemy extends character {
     }
     update(dt) {
         super.updateImages();
-        super.animate();
+        super.animate(dt);
     }
 }
 
 class orc extends enemy {
     constructor(x, y) {
-        super(x, y, 9, big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
+        super(x, y, 9, "big_orc(8x1)", big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
         this.trolling = 0;
         this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
         this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length -1)];
     }
-
     draw() {
         super.draw();
     }
@@ -336,6 +349,7 @@ class weapon extends object {
             if (this.owner.direction.horizontal === "RIGHT" && !this.throwing) this.zIndex = this.owner.zIndex + 1, this.angle += this.dAlpha;
             if (this.owner.direction.horizontal === "LEFT" && !this.throwing) this.zIndex = this.owner.zIndex - 1, this.angle -= this.dAlpha;
         }
+        super.update(dt);
     }
 }
 
@@ -353,6 +367,6 @@ class anime_sword extends weapon {
     }
 }
 
-for(let i = 0; i < 10; i++) {
+for(let i = 0; i < 0; i++) {
     physicalObjects.push(new anime_sword(hero.center.x, hero.center.y, undefined));
 }
