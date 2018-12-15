@@ -9,7 +9,6 @@ class rectAngle {
         this.height = height;
         this.color = color;
         this.fill = fill;
-        //this.chosen = false;
     }
     draw() {
         c.beginPath();
@@ -23,7 +22,7 @@ class rectAngle {
         }
     }
     update(dt) {
-        //if (this.chosen) this.x = mouse.x, this.y = mouse.y, mouse.holding = true;
+        
     }
 }
 
@@ -66,15 +65,29 @@ class object {
         this.chosen = false;
         this.zIndex = zIndex;
         this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, hitbox_color, false);
+        this.distanceX = undefined;
+        this.distanceY = undefined;
     }
     draw(){
-        this.hitbox.draw();
+        //this.hitbox.draw();
     }
     update(dt) {
         if (this.chosen) {
-            this.x = mouse.x;
-            this.y = mouse.y;
-            mouse.holding = true;
+            this.hitbox.draw()
+            //this.x = mouse.x - ((this.hitbox.x - this.x) + this.hitbox.width/2);
+            //this.y = mouse.y - ((this.hitbox.y - this.y) + this.hitbox.height/2);
+            if (editor.UI.followMouse) {
+                if(this.distanceX == undefined && this.distanceY == undefined) {
+                    this.distanceX = this.x - editor.UI.mousePoint.x;
+                    this.distanceY = this.y - editor.UI.mousePoint.y;
+                }
+                this.x = mouse.x + this.distanceX;
+                this.y = mouse.y + this.distanceY;
+            }      
+        }
+        if(!editor.UI.followMouse){
+             this.distanceX = undefined;
+             this.distanceY = undefined;
         }
     }
     createImages(spriteSheet, amountX, amountY, scale, reverse) {
@@ -111,14 +124,15 @@ class object {
 }
 
 class static_tile extends object {
-    constructor(img, hitbox_imageFilename, hibox_scale, x, y, zIndex, width, height, cols, rows, scale, type) {
+    constructor(img, hitbox_imageFilename, hitbox_scale, x, y, zIndex, width, height, cols, rows, scale, type) {
         super(x, y, zIndex, width, height, "blue");
         this.images = this.createImages(img, cols, rows, scale, false);
         this.type = type;
-        this.hibox_scale = hibox_scale;
+        this.hitbox_scale = hitbox_scale;
         this.hitbox_imageFilename = hitbox_imageFilename;
         this.itarater = 0;
     }
+
     draw() {
         this.images[this.type].draw();
         super.draw();
@@ -126,7 +140,7 @@ class static_tile extends object {
     update(dt) {
         this.images[this.type].update(this.x, this.y);
         super.update(dt);
-        this.updateSheetHitbox(this.hitbox_imageFilename, this.hibox_scale);
+        this.updateSheetHitbox(this.hitbox_imageFilename, this.hitbox_scale);
     }
 }
 

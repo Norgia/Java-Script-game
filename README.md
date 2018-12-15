@@ -29,3 +29,9 @@ Ladda ner Node js
 npm install http-server -g 
 
 http-server "C:\Users\....\Java-Script-game"
+
+git pull         #get new version
+git add mapp/file.py     #add file 
+git status         #get status 
+git commit -m "messeges" #will send commit to git
+git push origin master     #will push to git

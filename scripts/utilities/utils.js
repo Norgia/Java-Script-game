@@ -1,6 +1,6 @@
 //canvas:
-const canvas = document.querySelector("canvas");
-const c = canvas.getContext("2d");
+var canvas = document.querySelector("canvas");
+var c = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -31,7 +31,10 @@ const mouse = {
     width: 0,
     height: 0,
     pressed: false,
-    holding: false
+    clicked: false,
+    haveClicked: false,
+    holding: false,
+    follow: false
 };
 
 function subImg(spriteSheet, sx, sy, sWidth, sHeight, dx, dy, scale, dWidth, dHeight) {
@@ -127,8 +130,10 @@ addEventListener("resize", () => {
 
 function makeFloor() {
     let padding = 32;
-    for(let x = 200; x < window.innerWidth - 220; x+=padding) {
-        for(let y = 200; y < window.innerHeight - 220; y+=padding) {
+    let width = window.innerWidth/3;
+    let height = window.innerHeight/3;
+    for (let x = -20; x < width; x += padding) {
+        for(let y = -20; y < height; y+=padding) {
             physicalObjects.push(new floor(x, y, randomIntFromRange(0, 7)));
         }
     }

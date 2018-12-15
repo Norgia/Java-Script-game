@@ -21,6 +21,7 @@ document.onmousedown = function() {
 
 document.onmouseup = function () {
     mouse.pressed = false;
+    mouse.clicked = false;
 }
 
 let controller = {

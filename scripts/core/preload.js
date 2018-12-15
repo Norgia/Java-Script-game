@@ -15,3 +15,11 @@ let floors = document.getElementById("floors");
 
 //weapons
 let weapon_anime_sword = document.getElementById("weapon_anime_sword");
+
+//UI
+let folder_image_closed = document.getElementById("folder_image_closed");
+let folder_image_open = document.getElementById("folder_image_open");
+let thrash_image = document.getElementById("thrash_image");
+
+//ALL
+let ogre_idle_anim_f0 = document.getElementById("ogre_idle_anim_f0");

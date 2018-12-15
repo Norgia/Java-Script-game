@@ -296,10 +296,15 @@ for(let i = 0; i < 10; i++) {
 }
 
 class weapon extends object {
-    constructor(x, y, owner, width, height, img, flippedImg, dmg) {
-        super(x, y, width, height);
+    constructor(x, y, hitbox_imageFilename, hitbox_scale, owner, img, flippedImg, dmg, scale) {
+        super(x, y, hero.zIndex, undefined, undefined, "yellow");
+        this.hitbox_imageFilename = hitbox_imageFilename;
+        this.hitbox_scale = hitbox_scale;
+        this.scale = scale;
         this.owner = owner;
         this.image = img;
+        this.width = this.image.width*this.scale;
+        this.height = this.image.height*this.scale;
         this.flippedImg = flippedImg;
         this.currentImage = this.image;
         this.angle = Math.random()*10;
@@ -307,8 +312,8 @@ class weapon extends object {
         this.throwing = false;
         this.swinging = false;
         this.center = {
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
+            x: this.x + this.width / 2,
+            y: this.y + this.height / 2
         };
         this.damage = {
             amount: dmg,
@@ -318,6 +323,7 @@ class weapon extends object {
         };
     }
     draw() {
+        super.draw();
         if(this.throwing) {
             c.save();
             c.translate(this.center.x, this.center.y);
@@ -326,7 +332,7 @@ class weapon extends object {
             c.restore();
         }
         else {
-            c.drawImage(this.currentImage, this.center.x, this.center.y, this.currentImage.width, this.currentImage.height);
+            c.drawImage(this.currentImage, this.x, this.y, this.currentImage.width, this.currentImage.height);
         }
     }
 
@@ -339,23 +345,24 @@ class weapon extends object {
     }
 
     update(dt) {
-        if (this.owner == undefined) this.angle += this.dAlpha, this.center.y += Math.sin(this.angle)/3;
+        this.center.x = this.x + this.currentImage.width/2;
+        this.center.y = this.y + this.currentImage.height/2;
+        if (this.owner == undefined) {
+            this.angle += this.dAlpha, this.y += Math.sin(this.angle)/3;
+
+        }
         else {
-            this.x = this.owner.x;
-            this.y = this.owner.y;
-            this.center.x = this.owner.center.x - 5;
-            this.center.y = this.owner.center.y - 10;
-            
             if (this.owner.direction.horizontal === "RIGHT" && !this.throwing) this.zIndex = this.owner.zIndex + 1, this.angle += this.dAlpha;
             if (this.owner.direction.horizontal === "LEFT" && !this.throwing) this.zIndex = this.owner.zIndex - 1, this.angle -= this.dAlpha;
         }
         super.update(dt);
+        this.updateImgHitbox(this.hitbox_imageFilename, this.hitbox_scale)
     }
 }
 
 class anime_sword extends weapon {
     constructor(x, y, owner) {
-        super(x, y, owner, weapon_anime_sword.width, weapon_anime_sword.height, weapon_anime_sword, weapon_anime_sword, 10);
+        super(x, y, "weapon_anime_sword", 2, owner, weapon_anime_sword, weapon_anime_sword, 10, 1);
     }
 
     draw() {
@@ -364,9 +371,14 @@ class anime_sword extends weapon {
 
     update(dt) {
         super.update(dt);
+        
     }
 }
 
-for(let i = 0; i < 0; i++) {
-    physicalObjects.push(new anime_sword(hero.center.x, hero.center.y, undefined));
+
+for (let i = 0; i < 10; i++) {
+    let swordX = Math.random() * window.innerWidth;
+    let swordY = Math.random() * window.innerHeight;
+    physicalObjects.push(new anime_sword(swordX, swordY, undefined));
 }
+
