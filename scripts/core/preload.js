@@ -10,6 +10,14 @@ let big_orc_flipped = document.getElementById("big_orc_flipped");
 let big_orc_hit = document.getElementById("big_orc_hit");
 let big_orc_flipped_hit = document.getElementById("big_orc_flipped_hit");
 
+//Demon
+let demon = document.getElementById("demon");
+let demon_flipped = document.getElementById("demon_flipped");
+
+//Goblin
+let goblin = document.getElementById("goblin");
+let goblin_flipped = document.getElementById("goblin_flipped");
+
 //Floor
 let floors = document.getElementById("floors");
 
@@ -23,3 +31,4 @@ let thrash_image = document.getElementById("thrash_image");
 
 //ALL
 let ogre_idle_anim_f0 = document.getElementById("ogre_idle_anim_f0");
+let goblin_idle_anim_f0 = document.getElementById("goblin_idle_anim_f0");

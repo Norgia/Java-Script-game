@@ -39,6 +39,19 @@ class ogre_idle_anim extends item {
     }
 }
 
+class goblin_idle_anim extends item {
+    constructor(x, y) {
+        super(x, y, goblin_idle_anim_f0, "little goblin");
+    }
+
+    update(dt) {
+        if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
+            physicalObjects.push(new little_goblin(this.x, this.y));
+            mouse.clicked = true;
+        }
+    }
+}
+
 let thrash = new Object();
 thrash.x = window.innerWidth - 100;
 thrash.y = window.innerHeight - 100;
@@ -77,13 +90,12 @@ editor.UI = {
         set: false
     },
     parentFolders: [new folder(window.innerWidth - 200, 50, "Floor", [new folder(window.innerWidth - 200 - 40, 50 + 50, "Subfolder", [], true)], false),
-                    new folder(window.innerWidth - 200, 50 + 50, "Characters", [new folder(window.innerWidth - 200 - 40, 50 + 100, "Enemies", [new ogre_idle_anim(window.innerWidth - 200 - 80, 200)], true)], false),
+                    new folder(window.innerWidth - 200, 50 + 50, "Characters", [new folder(window.innerWidth - 200 - 40, 50 + 100, "Enemies", [new ogre_idle_anim(window.innerWidth - 200 - 80, 200), new goblin_idle_anim(window.innerWidth - 200 - 80, 250)], true)], false),
                     new folder(window.innerWidth - 200, 50 + 100, "Doors", [new folder(window.innerWidth - 200 - 40, 50 + 150, "Subfolder", [], true)], false),
                     new folder(window.innerWidth - 200, 50 + 150, "Weapons", [new folder(window.innerWidth - 200 - 40, 50 + 200, "Subfolder", [], true)], false)],
 
     init: function() {
         for(let i = 0; i < this.parentFolders.length; i++) {
-            console.log(this.parentFolders[i]);
             utilityObjects.push(this.parentFolders[i]);
         }
         utilityObjects.push(this.mouseRect);
@@ -134,7 +146,6 @@ editor.UI = {
     }
 }
 
-
 function folder(x, y, name, content, Subfolder) {
     this.x = x;
     this.y = y;
@@ -173,7 +184,7 @@ function folder(x, y, name, content, Subfolder) {
             else this.x += 60, this.collapse();
             mouse.clicked = true;
         }
-        if(this.open) this.currentImage = this.imageOpen, this.x;
+        if(this.open) this.currentImage = this.imageOpen;
         else this.currentImage = this.imageClosed;
     }
 
@@ -189,4 +200,4 @@ function folder(x, y, name, content, Subfolder) {
     }   
 }
 
-makeFloor();
+//makeFloor();

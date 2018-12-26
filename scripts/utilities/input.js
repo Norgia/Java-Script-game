@@ -4,7 +4,8 @@ let KEY = {
     UP: 87,
     DOWN: 83,
     JUMP: undefined,
-    ESCAPE: 27
+    ESCAPE: 27,
+    CTRL: 17
 };
 
 document.onkeydown = function (evt) { 
@@ -30,7 +31,8 @@ let controller = {
     up: false,
     down: false,
     jump: false,
-    paused: false
+    paused: false,
+    ctrl: false
 };
 
 function setPaused(v) {
@@ -54,6 +56,9 @@ function togglekey(keyCode, isPressed) {
     }
     if (keyCode == KEY.DOWN) {
         controller.down = isPressed;
+    }
+    if (keyCode == KEY.CTRL) {
+        controller.ctrl = isPressed;
     }
     if (keyCode == KEY.ESCAPE && isPressed) {
         setPaused(!controller.paused);

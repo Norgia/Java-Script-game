@@ -63,6 +63,70 @@ let hitboxArray = [{
     "width": 88.0,
     "height": 104.0
   },
+  "0.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 59.0,
+    "y": 64.0,
+    "width": 88.0,
+    "height": 104.0
+  },
+  "1.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 64.0,
+    "y": 56.0,
+    "width": 80.0,
+    "height": 112.0
+  },
+  "2.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 64.0,
+    "y": 60.0,
+    "width": 80.0,
+    "height": 108.0
+  },
+  "3.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 64.0,
+    "y": 64.0,
+    "width": 80.0,
+    "height": 104.0
+  },
+  "4.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 64.0,
+    "y": 68.0,
+    "width": 80.0,
+    "height": 100.0
+  },
+  "5.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 60.0,
+    "y": 68.0,
+    "width": 88.0,
+    "height": 100.0
+  },
+  "6.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 64.0,
+    "y": 64.0,
+    "width": 80.0,
+    "height": 104.0
+  },
+  "7.big_orc(8x1)_flipt.png": {
+    "imgWidth": 207.875,
+    "imgHeight": 208.0,
+    "x": 64.0,
+    "y": 64.0,
+    "width": 80.0,
+    "height": 104.0
+  },
   "0.big_zombie(8x1).png": {
     "imgWidth": 52.0,
     "imgHeight": 54.0,
@@ -126,6 +190,214 @@ let hitboxArray = [{
     "y": 15.0,
     "width": 20.0,
     "height": 29.0
+  },
+  "0.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 16.0,
+    "y": 15.0,
+    "width": 20.0,
+    "height": 29.0
+  },
+  "1.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 17.0,
+    "y": 11.0,
+    "width": 19.0,
+    "height": 33.0
+  },
+  "2.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 16.0,
+    "y": 11.0,
+    "width": 20.0,
+    "height": 29.0
+  },
+  "3.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 17.0,
+    "y": 18.0,
+    "width": 18.0,
+    "height": 26.0
+  },
+  "4.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 17.0,
+    "y": 20.0,
+    "width": 18.0,
+    "height": 24.0
+  },
+  "5.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 16.0,
+    "y": 19.0,
+    "width": 20.0,
+    "height": 25.0
+  },
+  "6.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 17.0,
+    "y": 17.0,
+    "width": 18.0,
+    "height": 27.0
+  },
+  "7.big_zombie(8x1)_flipt.png": {
+    "imgWidth": 52.0,
+    "imgHeight": 53.0,
+    "x": 17.0,
+    "y": 17.0,
+    "width": 18.0,
+    "height": 27.0
+  },
+  "0.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 60.0,
+    "y": 64.0,
+    "width": 92.0,
+    "height": 120.0
+  },
+  "1.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 56.0,
+    "y": 60.0,
+    "width": 92.0,
+    "height": 124.0
+  },
+  "2.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 60.0,
+    "y": 60.0,
+    "width": 88.0,
+    "height": 124.0
+  },
+  "3.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 52.0,
+    "y": 72.0,
+    "width": 104.0,
+    "height": 112.0
+  },
+  "4.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 56.0,
+    "y": 64.0,
+    "width": 88.0,
+    "height": 112.0
+  },
+  "5.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 56.0,
+    "y": 52.0,
+    "width": 88.0,
+    "height": 116.0
+  },
+  "6.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 56.0,
+    "y": 48.0,
+    "width": 88.0,
+    "height": 136.0
+  },
+  "7.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 56.0,
+    "y": 72.0,
+    "width": 92.0,
+    "height": 112.0
+  },
+  "8.demon(9x1).png": {
+    "imgWidth": 208.0,
+    "imgHeight": 224.0,
+    "x": 56.0,
+    "y": 72.0,
+    "width": 92.0,
+    "height": 112.0
+  },
+  "0.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 59.0,
+    "y": 72.0,
+    "width": 92.0,
+    "height": 112.0
+  },
+  "1.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 60.00000000000003,
+    "y": 72.0,
+    "width": 92.0,
+    "height": 112.0
+  },
+  "2.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 63.99999999999997,
+    "y": 48.0,
+    "width": 88.0,
+    "height": 136.0
+  },
+  "3.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 63.99999999999997,
+    "y": 52.0,
+    "width": 88.0,
+    "height": 116.0
+  },
+  "4.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 63.99999999999997,
+    "y": 64.0,
+    "width": 88.0,
+    "height": 112.0
+  },
+  "5.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 51.99999999999997,
+    "y": 72.0,
+    "width": 104.0,
+    "height": 112.0
+  },
+  "6.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 59.99999999999997,
+    "y": 60.0,
+    "width": 88.0,
+    "height": 124.0
+  },
+  "7.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 59.99999999999997,
+    "y": 60.0,
+    "width": 92.0,
+    "height": 124.0
+  },
+  "8.demon(9x1)_flipt.png": {
+    "imgWidth": 207.88888888888889,
+    "imgHeight": 223.0,
+    "x": 55.99999999999997,
+    "y": 64.0,
+    "width": 92.0,
+    "height": 120.0
   },
   "0.floor(13x1).png": {
     "imgWidth": 144.0,
@@ -231,6 +503,134 @@ let hitboxArray = [{
     "width": 64.0,
     "height": 64.0
   },
+  "0.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 64.0,
+    "width": 40.0,
+    "height": 40.0
+  },
+  "1.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 68.0,
+    "width": 40.0,
+    "height": 36.0
+  },
+  "2.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 72.0,
+    "width": 40.0,
+    "height": 32.0
+  },
+  "3.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 68.0,
+    "width": 40.0,
+    "height": 36.0
+  },
+  "4.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 60.0,
+    "width": 40.0,
+    "height": 40.0
+  },
+  "5.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 52.0,
+    "y": 56.0,
+    "width": 44.0,
+    "height": 40.0
+  },
+  "6.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 60.0,
+    "width": 40.0,
+    "height": 44.0
+  },
+  "7.goblin(8x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 56.0,
+    "y": 64.0,
+    "width": 40.0,
+    "height": 40.0
+  },
+  "0.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 64.0,
+    "width": 40.0,
+    "height": 40.0
+  },
+  "1.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 60.0,
+    "width": 40.0,
+    "height": 44.0
+  },
+  "2.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 56.0,
+    "width": 44.0,
+    "height": 40.0
+  },
+  "3.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 60.0,
+    "width": 40.0,
+    "height": 40.0
+  },
+  "4.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 68.0,
+    "width": 40.0,
+    "height": 36.0
+  },
+  "5.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 72.0,
+    "width": 40.0,
+    "height": 32.0
+  },
+  "6.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 68.0,
+    "width": 40.0,
+    "height": 36.0
+  },
+  "7.goblin(8x1)_flipt.png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 48.0,
+    "y": 64.0,
+    "width": 40.0,
+    "height": 40.0
+  },
   "0.knight_red(9x1).png": {
     "imgWidth": 64.0,
     "imgHeight": 112.0,
@@ -302,6 +702,78 @@ let hitboxArray = [{
     "y": 24.0,
     "width": 60.0,
     "height": 88.0
+  },
+  "0.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 24.0,
+    "width": 60.0,
+    "height": 87.0
+  },
+  "1.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 24.0,
+    "width": 60.0,
+    "height": 84.0
+  },
+  "2.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 24.0,
+    "width": 60.0,
+    "height": 80.0
+  },
+  "3.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 28.0,
+    "width": 60.0,
+    "height": 80.0
+  },
+  "4.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 36.0,
+    "width": 60.0,
+    "height": 75.0
+  },
+  "5.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 32.0,
+    "width": 60.0,
+    "height": 79.0
+  },
+  "6.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 32.0,
+    "width": 60.0,
+    "height": 79.0
+  },
+  "7.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 32.0,
+    "width": 60.0,
+    "height": 79.0
+  },
+  "8.knight_red(9x1)_flipt.png": {
+    "imgWidth": 64.0,
+    "imgHeight": 111.0,
+    "x": 4.0,
+    "y": 4.0,
+    "width": 56.0,
+    "height": 92.0
   },
   "big_demon_idle_anim_f0.png": {
     "imgWidth": 32,

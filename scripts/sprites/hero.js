@@ -7,7 +7,6 @@ class character extends object {
         this.flippedImages = this.createImages(flippedImages, cols, rows, scale, true);
         this.imagesDmg = this.createImages(imagesDmg, cols, rows, scale, false);
         this.flippedImagesDmg = this.createImages(flippedImagesDmg, cols, rows, scale, true);
-        
         this.center = {
             x: this.x + this.width/2,
             y: this.y + this.height/2
@@ -183,6 +182,7 @@ let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, "kni
 physicalObjects.push(hero);
 
 hero.draw = function() {
+    this.vision();
     c.beginPath()
     c.rect(this.x, this.y, this.img.width, this.img.height);
     c.stroke();
@@ -218,82 +218,6 @@ hero.light = function() {
     }
 }
 
-
-class enemy extends character {
-    constructor(x, y, zIndex, hitbox_imageFilename, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
-        super(x, y, zIndex, hitbox_imageFilename, "red", images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
-    }
-    draw() {
-        super.vision();
-        this.direction.moving.reset();
-        if (this.currentFrame != undefined) this.currentFrame.draw();
-    }
-    update(dt) {
-        super.updateImages();
-        super.animate(dt);
-    }
-}
-
-class orc extends enemy {
-    constructor(x, y) {
-        super(x, y, 9, "big_orc(8x1)", big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
-        this.trolling = 0;
-        this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
-        this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length -1)];
-    }
-    draw() {
-        super.draw();
-    }
-    update(dt) {
-        this.trolling++;
-        if(this.trolling > Math.random()*100000) {
-            this.trolling = 0;
-            this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length - 1)];
-            
-        }
-        switch(this.dir) {
-            case "NONE":
-                this.move.none(this);
-            break;
-            case "RIGHT":
-                this.move.right(dt, this);
-            break;
-            case "LEFT":
-                this.move.left(dt, this);
-            break;
-            case "UP":
-                this.move.up(dt, this);
-            break;
-            case "DOWN":
-                this.move.down(dt, this);
-            break;
-            case "LU":
-                this.move.left(dt, this);
-                this.move.up(dt, this);
-            break;
-            case "LD":
-                this.move.left(dt, this);
-                this.move.down(dt, this);
-            break;
-            case "RU":
-                this.move.right(dt, this);
-                this.move.up(dt, this);
-            break;
-            case "RD":
-                this.move.right(dt, this);
-                this.move.down(dt, this);
-            break;
-        }
-        super.update(dt);
-    }
-    
-}
-
-for(let i = 0; i < 10; i++) {
-    x = Math.random() * window.innerWidth;
-    y = Math.random() * window.innerHeight;
-    physicalObjects.push(new orc(x, y));
-}
 
 class weapon extends object {
     constructor(x, y, hitbox_imageFilename, hitbox_scale, owner, img, flippedImg, dmg, scale) {

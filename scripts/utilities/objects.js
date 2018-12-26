@@ -115,7 +115,8 @@ class object {
     }
     updateSheetHitbox(imageFilename, scale) {
         let fullname = imageFilename + ".png";
-        fullname = this.itarater + "." + fullname;
+        if (this.loopImages == this.idle) fullname = this.itarater + "." + fullname;
+        else fullname = this.itarater + 3 + "." + fullname;
         this.hitbox.x = this.x + hitboxArray[0][fullname].x*scale;
         this.hitbox.y = this.y + hitboxArray[0][fullname].y*scale;
         this.hitbox.width = hitboxArray[0][fullname].width*scale;
