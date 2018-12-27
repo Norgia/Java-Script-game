@@ -22,7 +22,7 @@ class rectAngle {
         }
     }
     update(dt) {
-        
+
     }
 }
 
@@ -83,7 +83,7 @@ class object {
                 }
                 this.x = mouse.x + this.distanceX;
                 this.y = mouse.y + this.distanceY;
-            }      
+            }
         }
         if(!editor.UI.followMouse){
              this.distanceX = undefined;
@@ -111,12 +111,12 @@ class object {
         this.hitbox.x = this.x + hitboxArray[0][fullname].x * scale;
         this.hitbox.y = this.y + hitboxArray[0][fullname].y * scale;
         this.hitbox.width = hitboxArray[0][fullname].width * scale;
-        this.hitbox.height = hitboxArray[0][fullname].height * scale; 
+        this.hitbox.height = hitboxArray[0][fullname].height * scale;
     }
     updateSheetHitbox(imageFilename, scale) {
-        let fullname = imageFilename + ".png";
-        if (this.loopImages == this.idle) fullname = this.itarater + "." + fullname;
-        else fullname = this.itarater + 3 + "." + fullname;
+        let fullname = this.itarater +"."+ imageFilename + ".png";
+        //if (this.loopImages == this.idle) fullname = this.itarater + "." + fullname;
+        //else fullname = this.itarater + 3 + "." + fullname;
         this.hitbox.x = this.x + hitboxArray[0][fullname].x*scale;
         this.hitbox.y = this.y + hitboxArray[0][fullname].y*scale;
         this.hitbox.width = hitboxArray[0][fullname].width*scale;
@@ -156,4 +156,3 @@ class floor extends static_tile {
         super.update();
     }
 }
-

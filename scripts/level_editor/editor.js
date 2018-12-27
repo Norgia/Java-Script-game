@@ -74,7 +74,7 @@ thrash.update = function(dt) {
     });
     if (thrash.destroy) thrash.currentImage.scale = 0.22;
     else thrash.currentImage.scale = 0.2;
-    
+
 }
 
 let editor = new Object();
@@ -129,7 +129,7 @@ editor.UI = {
             this.mousePoint.x = mouse.x;
             this.mousePoint.y = mouse.y;
             this.mousePoint.set = false;
-        } 
+        }
 
         if (mouse.pressed && !this.followMouse) {
             if(editor.UI.setStartPoint) {
@@ -197,7 +197,7 @@ function folder(x, y, name, content, Subfolder) {
         for (let i = 0; i < this.content.length; i++) {
             utilityObjects.splice(utilityObjects.indexOf(this.content[i]), 1);
         }
-    }   
+    }
 }
 
-//makeFloor();
+makeFloor();
