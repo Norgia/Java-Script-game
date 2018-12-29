@@ -85,7 +85,7 @@ class wall_types extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, this.type));
+                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, 2, this.type));
             }
             mouse.clicked = true;
         }
@@ -419,6 +419,7 @@ function makeWall(startX, y, amount, type) {
     let endTopBlock;
     let bottomBlocks;
     let topBlocks;
+    let zIndex;
     
     switch(type) {
         case "FRONT":
@@ -428,6 +429,7 @@ function makeWall(startX, y, amount, type) {
             startTopBlock = [9, 35];
             endBottomBlock = bottomBlocks;
             endTopBlock = [10, 36];
+            zIndex = 10;
         break;
         case "BACK":
             bottomBlocks = [11, 12, 33, 34, 41, 42, 43];
@@ -436,16 +438,19 @@ function makeWall(startX, y, amount, type) {
             startTopBlock = topBlocks;
             endBottomBlock = [38];
             endTopBlock = topBlocks;
+            zIndex = 2;
         break;
         case "LEFT":
             topBlocks = [47];
             startTopBlock = topBlocks;
             endTopBlock = topBlocks;
+            zIndex = 10;
         break;
         case "RIGHT":
             topBlocks = [46];
             startTopBlock = topBlocks;
             endTopBlock = topBlocks;
+            zIndex = 10;
         break;
     }
 
@@ -453,20 +458,20 @@ function makeWall(startX, y, amount, type) {
         let endX = startX + amount*padding;
         for (let x = startX; x <= endX; x += padding) {
             if (x == startX) {
-                let bottomWall = new wall(x, y, startBottomBlock[randomIntFromRange(0, startBottomBlock.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, startTopBlock[randomIntFromRange(0, startTopBlock.length - 1)]);
+                let bottomWall = new wall(x, y, zIndex, startBottomBlock[randomIntFromRange(0, startBottomBlock.length - 1)]);
+                let topWall = new wall(x, bottomWall.y - padding, zIndex, startTopBlock[randomIntFromRange(0, startTopBlock.length - 1)]);
                 physicalObjects.push(bottomWall);
                 physicalObjects.push(topWall);
 
             } else if(x < endX) {
-                let bottomWall = new wall(x, y, bottomBlocks[randomIntFromRange(0, bottomBlocks.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
+                let bottomWall = new wall(x, y, zIndex, bottomBlocks[randomIntFromRange(0, bottomBlocks.length - 1)]);
+                let topWall = new wall(x, bottomWall.y - padding, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
                 physicalObjects.push(bottomWall);
                 physicalObjects.push(topWall);
 
             } else {
-                let bottomWall = new wall(x, y, endBottomBlock[randomIntFromRange(0, endBottomBlock.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, endTopBlock[randomIntFromRange(0, endTopBlock.length - 1)]);
+                let bottomWall = new wall(x, y, zIndex, endBottomBlock[randomIntFromRange(0, endBottomBlock.length - 1)]);
+                let topWall = new wall(x, bottomWall.y - padding, zIndex, endTopBlock[randomIntFromRange(0, endTopBlock.length - 1)]);
                 physicalObjects.push(bottomWall);
                 physicalObjects.push(topWall);
             }
@@ -475,11 +480,19 @@ function makeWall(startX, y, amount, type) {
     else {
         let endY = y + amount * padding;
         for(let loopY = y; loopY <= endY; loopY+=padding) {
-           let topWall = new wall(startX, loopY, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
+           let topWall = new wall(startX, loopY, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
            physicalObjects.push(topWall);
         }
     }
 }
+
+let wallStartX = editor.UI.startFloor.x + 12;
+let wallStartY = editor.UI.startFloor.y + 12;
+makeWall(wallStartX,  wallStartY, 20, "BACK");
+makeWall(wallStartX, wallStartY + 32, 10, "LEFT");
+makeWall(wallStartX, wallStartY + 32 + 10*32, 20, "FRONT");
+makeWall(wallStartX + 20 * 32, wallStartY, 10, "RIGHT");
+
 
 function folder(x, y, name, content, Subfolder) {
     this.x = x;

@@ -59,13 +59,13 @@ class premade_floor extends static_tile {
 }
 
 class wall extends static_tile {
-    constructor(x, y, type) {
-        super(walls, "walls(50x1)", 0.5, x, y, 2, 100, 100, 50, 1, 0.5, type);
+    constructor(x, y, zIndex, type) {
+        super(walls, "walls(50x1)", 0.5, x, y, zIndex, 100, 100, 50, 1, 0.5, type);
     }
-     draw() {
-         super.draw();
-     }
-     update(dt) {
-         super.update();
-     }
+    draw() {
+        super.draw();
+    }
+    update(dt) {
+        super.update();
+    }
 }
