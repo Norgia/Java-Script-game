@@ -34,7 +34,11 @@ const mouse = {
     clicked: false,
     haveClicked: false,
     holding: false,
-    follow: false
+    follow: false,
+    image: cursor_image,
+    draw: function() {
+        c.drawImage(this.image, this.x - this.image.width/7, this.y - this.image.height/7);
+    }
 };
 
 function subImg(spriteSheet, sx, sy, sWidth, sHeight, dx, dy, scale, dWidth, dHeight) {
@@ -130,11 +134,82 @@ addEventListener("resize", () => {
 
 function makeFloor() {
     let padding = 32;
-    let width = window.innerWidth/3;
-    let height = window.innerHeight/3;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
     for (let x = -20; x < width; x += padding) {
         for(let y = -20; y < height; y+=padding) {
-            physicalObjects.push(new floor(x, y, randomIntFromRange(0, 7)));
+            physicalObjects.push(new floor(x, y, randomIntFromRange(0, 0)));
         }
+    }
+}
+
+function createImages(spriteSheet, amountX, amountY, scale, reverse) {
+    let Images = [];
+
+    for (let y = 0; y < spriteSheet.height; y += spriteSheet.height / amountY) {
+        if (!reverse) {
+            for (let x = 0; x < spriteSheet.width; x += spriteSheet.width / amountX) {
+                Images.push(new subImg(spriteSheet, x, y, spriteSheet.width / amountX, spriteSheet.height / amountY, this.x, this.y, scale, spriteSheet.width / amountX, spriteSheet.height / amountY));
+            }
+        } else {
+            for (let x = spriteSheet.width; x > 0; x -= spriteSheet.width / amountX) {
+                Images.push(new subImg(spriteSheet, x, y, -spriteSheet.width / amountX, spriteSheet.height / amountY, this.x, this.y, scale, spriteSheet.width / amountX, spriteSheet.height / amountY));
+            }
+        }
+    }
+    return Images;
+}
+
+class rectAngle {
+    constructor(x, y, width, height, color, fill) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+        this.fill = fill;
+    }
+    draw() {
+        c.beginPath();
+        c.rect(this.x, this.y, this.width, this.height);
+        if (this.fill) {
+            c.fillStyle = this.color;
+            c.fill();
+        } else {
+            c.strokeStyle = this.color;
+            c.stroke();
+        }
+    }
+    update(dt) {
+
+    }
+}
+
+class circle {
+    constructor(x, y, radius, startA, endA, color, fill, blur) {
+        this.x = x;
+        this.y = y;
+        this.startA = startA;
+        this.endA = endA;
+        this.radius = radius;
+        this.color = color;
+        this.fill = fill;
+        this.blur = blur;
+    }
+    draw() {
+        c.beginPath();
+        if (this.blur) c.filter = "blur(10px)";
+        c.arc(this.x, this.y, this.radius, this.startA, this.endA, true);
+        if (this.fill) {
+            c.fillStyle = this.color;
+            c.fill();
+        } else {
+            c.strokeStyle = this.color;
+            c.stroke();
+        }
+        c.filter = "none";
+    }
+    update(dt) {
+        
     }
 }

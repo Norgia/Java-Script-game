@@ -3,10 +3,10 @@ class character extends object {
         super(x, y, zIndex, undefined, undefined, hitbox_color);
         this.hitbox_imageFilename = hitbox_imageFilename;
         this.scale = scale;
-        this.images = this.createImages(images, cols, rows, scale, false);
-        this.flippedImages = this.createImages(flippedImages, cols, rows, scale, true);
-        this.imagesDmg = this.createImages(imagesDmg, cols, rows, scale, false);
-        this.flippedImagesDmg = this.createImages(flippedImagesDmg, cols, rows, scale, true);
+        this.images = createImages(images, cols, rows, scale, false);
+        this.flippedImages = createImages(flippedImages, cols, rows, scale, true);
+        this.imagesDmg = createImages(imagesDmg, cols, rows, scale, false);
+        this.flippedImagesDmg = createImages(flippedImagesDmg, cols, rows, scale, true);
         this.center = {
             x: this.x + this.width/2,
             y: this.y + this.height/2
@@ -177,7 +177,7 @@ class character extends object {
     }
 }
     
-let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 10, "knight_red(9x1)", "green", knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 250, 100);
+let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 5, "knight_red(9x1)", "green", knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 250, 100);
 
 physicalObjects.push(hero);
 
@@ -305,4 +305,3 @@ for (let i = 0; i < 10; i++) {
     let swordY = Math.random() * window.innerHeight;
     physicalObjects.push(new anime_sword(swordX, swordY, undefined));
 }
-

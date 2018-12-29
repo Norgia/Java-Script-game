@@ -89,7 +89,7 @@ Maze.prototype.draw = function() {
 		for(var x = 0; x < this.gridW; ++x)
 		{
 
-			if(this.gridMap[y][x]==0) { c.fillRect(100 * x, 100 * y, 100, 100); }
+			if(this.gridMap[y][x]==0) { c.fillRect(10 * x, 10 * y, 10, 10); }
 		}
 	}
 };
@@ -100,4 +100,4 @@ Maze.prototype.update = function(dt) {
 
 var mazeW = 5, mazeH = 5;
 let test = new Maze(mazeW, mazeH, "nw");
-utilityObjects.push(test);
+//utilityObjects.push(test);

@@ -63,70 +63,6 @@ let hitboxArray = [{
     "width": 88.0,
     "height": 104.0
   },
-  "0.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 59.0,
-    "y": 64.0,
-    "width": 88.0,
-    "height": 104.0
-  },
-  "1.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 64.0,
-    "y": 56.0,
-    "width": 80.0,
-    "height": 112.0
-  },
-  "2.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 64.0,
-    "y": 60.0,
-    "width": 80.0,
-    "height": 108.0
-  },
-  "3.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 64.0,
-    "y": 64.0,
-    "width": 80.0,
-    "height": 104.0
-  },
-  "4.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 64.0,
-    "y": 68.0,
-    "width": 80.0,
-    "height": 100.0
-  },
-  "5.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 60.0,
-    "y": 68.0,
-    "width": 88.0,
-    "height": 100.0
-  },
-  "6.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 64.0,
-    "y": 64.0,
-    "width": 80.0,
-    "height": 104.0
-  },
-  "7.big_orc(8x1)_flipt.png": {
-    "imgWidth": 207.875,
-    "imgHeight": 208.0,
-    "x": 64.0,
-    "y": 64.0,
-    "width": 80.0,
-    "height": 104.0
-  },
   "0.big_zombie(8x1).png": {
     "imgWidth": 52.0,
     "imgHeight": 54.0,
@@ -190,70 +126,6 @@ let hitboxArray = [{
     "y": 15.0,
     "width": 20.0,
     "height": 29.0
-  },
-  "0.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 16.0,
-    "y": 15.0,
-    "width": 20.0,
-    "height": 29.0
-  },
-  "1.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 17.0,
-    "y": 11.0,
-    "width": 19.0,
-    "height": 33.0
-  },
-  "2.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 16.0,
-    "y": 11.0,
-    "width": 20.0,
-    "height": 29.0
-  },
-  "3.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 17.0,
-    "y": 18.0,
-    "width": 18.0,
-    "height": 26.0
-  },
-  "4.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 17.0,
-    "y": 20.0,
-    "width": 18.0,
-    "height": 24.0
-  },
-  "5.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 16.0,
-    "y": 19.0,
-    "width": 20.0,
-    "height": 25.0
-  },
-  "6.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 17.0,
-    "y": 17.0,
-    "width": 18.0,
-    "height": 27.0
-  },
-  "7.big_zombie(8x1)_flipt.png": {
-    "imgWidth": 52.0,
-    "imgHeight": 53.0,
-    "x": 17.0,
-    "y": 17.0,
-    "width": 18.0,
-    "height": 27.0
   },
   "0.demon(9x1).png": {
     "imgWidth": 208.0,
@@ -326,78 +198,6 @@ let hitboxArray = [{
     "y": 72.0,
     "width": 92.0,
     "height": 112.0
-  },
-  "0.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 59.0,
-    "y": 72.0,
-    "width": 92.0,
-    "height": 112.0
-  },
-  "1.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 60.00000000000003,
-    "y": 72.0,
-    "width": 92.0,
-    "height": 112.0
-  },
-  "2.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 63.99999999999997,
-    "y": 48.0,
-    "width": 88.0,
-    "height": 136.0
-  },
-  "3.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 63.99999999999997,
-    "y": 52.0,
-    "width": 88.0,
-    "height": 116.0
-  },
-  "4.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 63.99999999999997,
-    "y": 64.0,
-    "width": 88.0,
-    "height": 112.0
-  },
-  "5.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 51.99999999999997,
-    "y": 72.0,
-    "width": 104.0,
-    "height": 112.0
-  },
-  "6.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 59.99999999999997,
-    "y": 60.0,
-    "width": 88.0,
-    "height": 124.0
-  },
-  "7.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 59.99999999999997,
-    "y": 60.0,
-    "width": 92.0,
-    "height": 124.0
-  },
-  "8.demon(9x1)_flipt.png": {
-    "imgWidth": 207.88888888888889,
-    "imgHeight": 223.0,
-    "x": 55.99999999999997,
-    "y": 64.0,
-    "width": 92.0,
-    "height": 120.0
   },
   "0.floor(13x1).png": {
     "imgWidth": 144.0,
@@ -567,70 +367,6 @@ let hitboxArray = [{
     "width": 40.0,
     "height": 40.0
   },
-  "0.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 64.0,
-    "width": 40.0,
-    "height": 40.0
-  },
-  "1.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 60.0,
-    "width": 40.0,
-    "height": 44.0
-  },
-  "2.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 56.0,
-    "width": 44.0,
-    "height": 40.0
-  },
-  "3.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 60.0,
-    "width": 40.0,
-    "height": 40.0
-  },
-  "4.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 68.0,
-    "width": 40.0,
-    "height": 36.0
-  },
-  "5.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 72.0,
-    "width": 40.0,
-    "height": 32.0
-  },
-  "6.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 68.0,
-    "width": 40.0,
-    "height": 36.0
-  },
-  "7.goblin(8x1)_flipt.png": {
-    "imgWidth": 144.0,
-    "imgHeight": 144.0,
-    "x": 48.0,
-    "y": 64.0,
-    "width": 40.0,
-    "height": 40.0
-  },
   "0.knight_red(9x1).png": {
     "imgWidth": 64.0,
     "imgHeight": 112.0,
@@ -703,77 +439,405 @@ let hitboxArray = [{
     "width": 60.0,
     "height": 88.0
   },
-  "0.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 24.0,
-    "width": 60.0,
-    "height": 87.0
+  "0.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 84.0,
+    "y": 88.0,
+    "width": 20.0,
+    "height": 16.0
   },
-  "1.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 24.0,
-    "width": 60.0,
-    "height": 84.0
+  "1.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 20.0,
+    "height": 16.0
   },
-  "2.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 24.0,
-    "width": 60.0,
-    "height": 80.0
+  "2.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
   },
-  "3.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 28.0,
-    "width": 60.0,
-    "height": 80.0
+  "3.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
-  "4.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 36.0,
-    "width": 60.0,
-    "height": 75.0
+  "4.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
-  "5.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 32.0,
-    "width": 60.0,
-    "height": 79.0
+  "5.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
-  "6.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 32.0,
-    "width": 60.0,
-    "height": 79.0
+  "6.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
-  "7.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 32.0,
-    "width": 60.0,
-    "height": 79.0
+  "7.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
-  "8.knight_red(9x1)_flipt.png": {
-    "imgWidth": 64.0,
-    "imgHeight": 111.0,
-    "x": 4.0,
-    "y": 4.0,
-    "width": 56.0,
-    "height": 92.0
+  "8.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 56.0,
+    "width": 64.0,
+    "height": 48.0
+  },
+  "9.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "10.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "11.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "12.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "13.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "14.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "15.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
+  },
+  "16.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
+  },
+  "17.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "18.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "19.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "20.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "21.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "22.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "23.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "24.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "25.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "26.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "27.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "28.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "29.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "30.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 76.0,
+    "width": 64.0,
+    "height": 28.0
+  },
+  "31.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "32.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "33.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "34.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "35.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "36.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "37.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "38.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "39.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
+  },
+  "40.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
+  },
+  "41.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "42.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "43.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "44.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 84.0,
+    "y": 40.0,
+    "width": 20.0,
+    "height": 64.0
+  },
+  "45.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 20.0,
+    "height": 64.0
+  },
+  "46.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 84.0,
+    "y": 40.0,
+    "width": 20.0,
+    "height": 64.0
+  },
+  "47.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 20.0,
+    "height": 64.0
+  },
+  "48.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
+  },
+  "49.walls(50x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 88.0,
+    "width": 64.0,
+    "height": 16.0
   },
   "big_demon_idle_anim_f0.png": {
     "imgWidth": 32,
@@ -838,6 +902,14 @@ let hitboxArray = [{
     "y": 8,
     "width": 23,
     "height": 28
+  },
+  "big_floor_image.png": {
+    "imgWidth": 1916,
+    "imgHeight": 922,
+    "x": 0,
+    "y": 0,
+    "width": 1916,
+    "height": 922
   },
   "big_zombie_idle_anim_f0.png": {
     "imgWidth": 32,
@@ -1878,6 +1950,14 @@ let hitboxArray = [{
     "y": 4,
     "width": 12,
     "height": 16
+  },
+  "medium_floor_image.png": {
+    "imgWidth": 868,
+    "imgHeight": 482,
+    "x": 0,
+    "y": 0,
+    "width": 868,
+    "height": 482
   },
   "muddy_idle_anim_f0.png": {
     "imgWidth": 16,

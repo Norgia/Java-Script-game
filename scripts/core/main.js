@@ -1,5 +1,8 @@
 let game = new Object();
 game.start = undefined;
+game.background = {
+  color: "white"
+};
 
 game.init = function() {
   game.start = Date.now();
@@ -40,10 +43,13 @@ game.draw = function() {
     object.draw();
   });
   if(game.utils.enabled) game.utils.draw();
+  //mouse.draw();
 }
 
 game.update = function (dt) {
   c.clearRect(0, 0, innerWidth, innerHeight);
+  c.fillStyle = game.background.color;
+  c.fillRect(0, 0, window.innerWidth, window.innerHeight);
   physicalObjects.forEach(object => {
     object.update(dt);
   });

@@ -1,6 +1,6 @@
 class enemy extends character {
-    constructor(x, y, zIndex, hitbox_imageFilename, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
-        super(x, y, zIndex, hitbox_imageFilename, "red", images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
+    constructor(x, y, hitbox_imageFilename, images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp) {
+        super(x, y, 4, hitbox_imageFilename, "red", images, flippedImages, imagesDmg, flippedImagesDmg, cols, rows, scale, idle, run, moveAmount, hp);
     }
     draw() {
         //super.vision();
@@ -15,7 +15,7 @@ class enemy extends character {
 
 class orc extends enemy {
     constructor(x, y) {
-        super(x, y, 9, "big_orc(8x1)", big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
+        super(x, y, "big_orc(8x1)", big_orc, big_orc_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
         this.trolling = 0;
         this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
         this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length - 1)];
@@ -69,7 +69,7 @@ class orc extends enemy {
 
 class big_demon extends enemy{
     constructor(x, y) {
-        super(x, y, 9, "demon(9x1)", demon, demon_flipped, big_orc_hit, big_orc_flipped_hit, 9, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
+        super(x, y, "demon(9x1)", demon, demon_flipped, big_orc_hit, big_orc_flipped_hit, 9, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 100, 300);
         this.trolling = 0;
         this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
         this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length - 1)];
@@ -123,7 +123,7 @@ class big_demon extends enemy{
 
 class little_goblin extends enemy {
     constructor(x, y) {
-        super(x, y, 9, "goblin(8x1)", goblin, goblin_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 200, 300);
+        super(x, y, "goblin(8x1)", goblin, goblin_flipped, big_orc_hit, big_orc_flipped_hit, 8, 1, 0.5, [0, 1, 2, 3], [4, 5, 6, 7], 200, 300);
         this.trolling = 0;
         this.trollingDirs = ["RIGHT", "LEFT", "UP", "DOWN", "NONE", "LU", "LD", "RU", "RD"];
         this.dir = this.trollingDirs[randomIntFromRange(0, this.trollingDirs.length - 1)];
