@@ -35,7 +35,7 @@ def staticSheet(folder, folderPath, data):
                 maximal_y = None
                 rowdata = ""
                 while row < y + 1:
-                    print("")
+                    #print("")
                     #print("Row number: " + str(row))
                     while col < x + 1:
                         # get the RGB values from the current pixel
@@ -66,19 +66,29 @@ def staticSheet(folder, folderPath, data):
                     # reset the column count
                     col = x - cutX + 1
                 #output for proof!
-                print("")
-                print("Width = " + str(cutX) + " pixels")
-                print("Height = " + str(cutY) + " pixels")
-                print("Total Pixels = " + str(pix) + ".")
-                print(minimal_x - x + cutX, minimal_y - y + cutY, maximal_x + 1 - x + cutX, maximal_y + 1 - y + cutY)
-                data[str(index) + "." + img] = {
-                    'imgWidth': cutX,
-                    'imgHeight': cutY,
-                    'x': minimal_x - x + cutX,
-                    'y': minimal_y - y + cutY,
-                    'width': maximal_x + 1 - x + cutX - (minimal_x - x + cutX),
-                    'height': maximal_y + 1 - y + cutY - (minimal_y - y + cutY)
-                }
+                #print("")
+                #print("Width = " + str(cutX) + " pixels")
+                #print("Height = " + str(cutY) + " pixels")
+                #print("Total Pixels = " + str(pix) + ".")
+                #print(minimal_x - x + cutX, minimal_y - y + cutY, maximal_x + 1 - x + cutX, maximal_y + 1 - y + cutY)
+                if img == "walls(50x1).png":
+                    data[str(index) + "." + img] = {
+                        'imgWidth': cutX,
+                        'imgHeight': cutY,
+                        'x': 40.0,
+                        'y': 40.0,
+                        'width': 64.0,
+                        'height': 64.0
+                    }
+                else:
+                    data[str(index) + "." + img] = {
+                        'imgWidth': cutX,
+                        'imgHeight': cutY,
+                        'x': minimal_x - x + cutX,
+                        'y': minimal_y - y + cutY,
+                        'width': maximal_x + 1 - x + cutX - (minimal_x - x + cutX),
+                        'height': maximal_y + 1 - y + cutY - (minimal_y - y + cutY)
+                    }
                 index+=1
 
 def staticSingle(folder, folderPath, data):
@@ -104,8 +114,8 @@ def staticSingle(folder, folderPath, data):
         # all the plus and minus ones are to deal with the .getpixel class being
         # zero indexed and we want the output to start at pixel 1,1 not 0,0!
         while row < height + 1:
-            print("")
-            print("Row number: " + str(row))
+            #print("")
+            #print("Row number: " + str(row))
             while col < width + 1:
                 # get the RGB values from the current pixel
                 x = col - 1
@@ -128,7 +138,7 @@ def staticSingle(folder, folderPath, data):
                 # increment the pixel count
                 pix = pix + 1
             # print out all RGB values for the row
-            print(rowdata)
+            #print(rowdata)
             # clear out rowdata variable
             rowdata = ""
             # increment the row...
@@ -136,11 +146,11 @@ def staticSingle(folder, folderPath, data):
             # reset the column count
             col = 1
         #output for proof!
-        print("")
-        print("Width = " + str(width) + " pixels")
-        print("Height = " + str(height) + " pixels")
-        print("Total Pixels = " + str(pix) + ".")
-        print(minimal_x, minimal_y, maximal_x + 1, maximal_y + 1)
+        #print("")
+        #print("Width = " + str(width) + " pixels")
+        #print("Height = " + str(height) + " pixels")
+        #print("Total Pixels = " + str(pix) + ".")
+        #print(minimal_x, minimal_y, maximal_x + 1, maximal_y + 1)
         data[img] = {
             'imgWidth': width,
             'imgHeight': height,
@@ -169,5 +179,6 @@ folderPath += "/"
 staticSingle(folder, folderPath, data)
 
 writeToJSONFile(path, filename, data)
+print("DONE!")
 
 

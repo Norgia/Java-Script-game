@@ -78,6 +78,7 @@ class wall_types extends item {
         this.type = type;
         this.images = this.createImages(walls, 50, 1, 0.15, false);
         this.currentImage = this.images[this.type];
+        this.images = [];
         this.width = this.currentImage.dWidth;
         this.height = this.currentImage.dHeight;
         this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, "black", false);
@@ -85,7 +86,7 @@ class wall_types extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, 2, this.type));
+                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, 9, this.type,));
             }
             mouse.clicked = true;
         }
@@ -98,6 +99,7 @@ class floor_types extends item {
         this.type = type;
         this.images = this.createImages(floors, 13, 1, 0.15, false);
         this.currentImage = this.images[this.type];
+        this.images = [];
         this.width = this.currentImage.dWidth;
         this.height = this.currentImage.dHeight;
         this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, "black", false);
@@ -105,7 +107,7 @@ class floor_types extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new floor(Math.random()*window.innerWidth, Math.random()*window.innerHeight, this.type));
+                physicalObjects.push(new floor(this.x + i - 2 * this.hitbox.width, this.y + i - 2 * this.hitbox.height, this.type));
             }
             mouse.clicked = true;
         }
@@ -114,10 +116,11 @@ class floor_types extends item {
 
 class floor_types_premade extends item {
     constructor(x, y, type) {
-        super(x, y, undefined, "Premade floor " + type)
+        super(x, y, undefined, "Premade floor " + type);
         this.type = type;
         this.images = this.createImages(floors, 13, 1, 0.15, false);
         this.currentImage = this.images[0];
+        this.images = [];
         this.width = this.currentImage.dWidth;
         this.height = this.currentImage.dHeight;
         this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, "black", false);
@@ -126,6 +129,48 @@ class floor_types_premade extends item {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
                 physicalObjects.push(new premade_floor(this.x + i - 2 * this.hitbox.width, this.y + i - 2 * this.hitbox.height, this.type));
+            }
+            mouse.clicked = true;
+        }
+    }
+}
+
+class wall_builder extends item {
+    constructor(x, y, type) {
+        super(x, y, undefined, "Wallbuilder " + type); 
+        if(type >= 2) this.type = 0;
+        else this.type = type;
+        this.images = this.createImages(wallbuilder_image, 2, 1, 0.15, false);
+        this.currentImage = this.images[this.type];
+        this.width = this.currentImage.dWidth;
+        this.height = this.currentImage.dHeight;
+        this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, "black", false);
+        this.type = type;
+    }
+    update(dt) {
+        if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
+            if (this.type < 2) physicalObjects.push(new wall_indicators(this.x + this.hitbox.width, this.y + this.hitbox.height, this.type));
+            else {
+                let startRect = undefined;
+                let endRect = undefined;
+                physicalObjects.forEach(object => {
+                    if (object instanceof wall_indicators) {
+                        if(object.type == 0 && startRect == undefined) startRect = object;
+                        if(object.type == 1 && endRect == undefined) endRect = object;
+                    }
+                });
+                if (startRect == undefined || endRect == undefined) return;
+                if(startRect.x > endRect.x ) {
+                    let sRectSaveX = startRect.x
+                    startRect.x = endRect.x;
+                    endRect.x = sRectSaveX;
+                }
+                if(startRect.y > endRect.y ) {
+                    let sRectSaveY = startRect.y
+                    startRect.y = endRect.y;
+                    endRect.x = sRectSaveY;
+                }
+                makeWall(startRect.x, startRect.y, endRect.x, endRect.y, editor.UI.rotationSlider.value);
             }
             mouse.clicked = true;
         }
@@ -161,13 +206,13 @@ thrash.update = function(dt) {
      }
     if (thrash.destroy) thrash.currentImage.scale = 0.22;
     else thrash.currentImage.scale = 0.2;
-    if(controller.z && controller.ctrl) {
+    /*if(controller.z && controller.ctrl) {
         thrash.bin.forEach(object => {
             if (colision(thrash, object.hitbox)) object.x -= 200, object.y -= 200;
             physicalObjects.push(object);
             thrash.bin.splice(thrash.bin.indexOf(object), 1);
         });
-    }
+    }*/
 }
 
 class slider {
@@ -213,6 +258,20 @@ class small_slider extends slider {
     }
 }
 
+class rotation_slider extends slider {
+    constructor(x, y, width, height, interval, name) {
+        super(x, y, width, height, interval, name);
+    }
+    update(dt) {
+        super.update(dt);
+        if (this.value == this.MaxValue - 4) this.value = "MID";
+        if (this.value == this.MaxValue - 3) this.value = "FRONT";
+        if (this.value == this.MaxValue - 2) this.value = "BACK";
+        if (this.value == this.MaxValue - 1) this.value = "LEFT";
+        if (this.value == this.MaxValue - 0) this.value = "RIGHT";
+    }
+}
+
 class onOff_slider extends slider {
     constructor(x, y, height, name) {
         super(x, y, height*2, height, 9, name);
@@ -238,6 +297,7 @@ editor.UI = {
     spawnAmountSlider: new slider(window.innerWidth - 250, window.innerHeight-220, 100, 20, 100, "Spawn amount"),
     showInformationSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-260, 20, "Information"),
     changeBackgroundSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-300, 20, "Background"),
+    rotationSlider: new rotation_slider(window.innerWidth - 250, window.innerHeight - 140, 100, 20, 3, "Rotation"),
     mousePoint: {
         x: undefined,
         y: undefined,
@@ -309,7 +369,7 @@ editor.UI = {
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 435, 11),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 460, 12),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 485, 13),
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 510, 13),
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 510, 14),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 535, 33),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 560, 34),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 585, 37),
@@ -317,6 +377,10 @@ editor.UI = {
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 635, 41),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 660, 42),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 685, 43)
+                                                                                                                                          ], true), new folder(window.innerWidth - 200 - 40, 450, "Builder", [
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 40, 485, 0),
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 40, 510, 1),
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 40, 535, 2),
                                                                                                                                           ], true)], false)],
                                                                                                                                           
     init: function() {
@@ -325,7 +389,7 @@ editor.UI = {
         }
         utilityObjects.push(this.mouseRect);
         utilityObjects.push(thrash);
-        utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider);
+        utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider);
         physicalObjects.push(this.startFloor);
     },
     update: function(dt) {
@@ -350,12 +414,13 @@ editor.UI = {
         else game.background.color = "white";
         if (this.hideSlider.value == "true" && utilityObjects.indexOf(this.changeBackgroundSlider) != -1) {
             utilityObjects.splice(utilityObjects.indexOf(this.changeBackgroundSlider), 1);
+            utilityObjects.splice(utilityObjects.indexOf(this.rotationSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.showInformationSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.zIndexSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.spawnAmountSlider), 1);
         }
         if (this.hideSlider.value == "false" && utilityObjects.indexOf(this.changeBackgroundSlider) == -1) {
-            utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider);
+            utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider);
         }
         if (!mouse.pressed) {
             this.followMouse = false;
@@ -408,91 +473,6 @@ function ensureGrid(referenceObject) {
         }
    }
 }
-
-function makeWall(startX, y, amount, type) {
-    let padding;
-    if(amount < 0) padding = -32;
-    else padding = 32;
-    let startBottomBlock;
-    let startTopBlock;
-    let endBottomBlock; 
-    let endTopBlock;
-    let bottomBlocks;
-    let topBlocks;
-    let zIndex;
-    
-    switch(type) {
-        case "FRONT":
-            bottomBlocks = [11, 12, 33, 34, 41, 42, 43];
-            topBlocks = [15, 16, 39, 40, 48, 49]
-            startBottomBlock = bottomBlocks;
-            startTopBlock = [9, 35];
-            endBottomBlock = bottomBlocks;
-            endTopBlock = [10, 36];
-            zIndex = 10;
-        break;
-        case "BACK":
-            bottomBlocks = [11, 12, 33, 34, 41, 42, 43];
-            topBlocks = [15, 16, 39, 40, 48, 49]
-            startBottomBlock = [13, 37];
-            startTopBlock = topBlocks;
-            endBottomBlock = [38];
-            endTopBlock = topBlocks;
-            zIndex = 2;
-        break;
-        case "LEFT":
-            topBlocks = [47];
-            startTopBlock = topBlocks;
-            endTopBlock = topBlocks;
-            zIndex = 10;
-        break;
-        case "RIGHT":
-            topBlocks = [46];
-            startTopBlock = topBlocks;
-            endTopBlock = topBlocks;
-            zIndex = 10;
-        break;
-    }
-
-    if(type == "FRONT" || type == "BACK") {
-        let endX = startX + amount*padding;
-        for (let x = startX; x <= endX; x += padding) {
-            if (x == startX) {
-                let bottomWall = new wall(x, y, zIndex, startBottomBlock[randomIntFromRange(0, startBottomBlock.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, zIndex, startTopBlock[randomIntFromRange(0, startTopBlock.length - 1)]);
-                physicalObjects.push(bottomWall);
-                physicalObjects.push(topWall);
-
-            } else if(x < endX) {
-                let bottomWall = new wall(x, y, zIndex, bottomBlocks[randomIntFromRange(0, bottomBlocks.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
-                physicalObjects.push(bottomWall);
-                physicalObjects.push(topWall);
-
-            } else {
-                let bottomWall = new wall(x, y, zIndex, endBottomBlock[randomIntFromRange(0, endBottomBlock.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, zIndex, endTopBlock[randomIntFromRange(0, endTopBlock.length - 1)]);
-                physicalObjects.push(bottomWall);
-                physicalObjects.push(topWall);
-            }
-        }
-    }
-    else {
-        let endY = y + amount * padding;
-        for(let loopY = y; loopY <= endY; loopY+=padding) {
-           let topWall = new wall(startX, loopY, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
-           physicalObjects.push(topWall);
-        }
-    }
-}
-
-let wallStartX = editor.UI.startFloor.x + 12;
-let wallStartY = editor.UI.startFloor.y + 12;
-makeWall(wallStartX,  wallStartY, 20, "BACK");
-makeWall(wallStartX, wallStartY + 32, 10, "LEFT");
-makeWall(wallStartX, wallStartY + 32 + 10*32, 20, "FRONT");
-makeWall(wallStartX + 20 * 32, wallStartY, 10, "RIGHT");
-
 
 function folder(x, y, name, content, Subfolder) {
     this.x = x;

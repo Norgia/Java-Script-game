@@ -439,29 +439,45 @@ let hitboxArray = [{
     "width": 60.0,
     "height": 88.0
   },
+  "0.wallbuilder_image(2x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
+  "1.wallbuilder_image(2x1).png": {
+    "imgWidth": 144.0,
+    "imgHeight": 144.0,
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
+  },
   "0.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
-    "x": 84.0,
-    "y": 88.0,
-    "width": 20.0,
-    "height": 16.0
+    "x": 40.0,
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
   "1.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
-    "width": 20.0,
-    "height": 16.0
+    "y": 40.0,
+    "width": 64.0,
+    "height": 64.0
   },
   "2.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "3.walls(50x1).png": {
     "imgWidth": 144.0,
@@ -507,9 +523,9 @@ let hitboxArray = [{
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 56.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 48.0
+    "height": 64.0
   },
   "9.walls(50x1).png": {
     "imgWidth": 144.0,
@@ -563,17 +579,17 @@ let hitboxArray = [{
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "16.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "17.walls(50x1).png": {
     "imgWidth": 144.0,
@@ -683,9 +699,9 @@ let hitboxArray = [{
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 76.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 28.0
+    "height": 64.0
   },
   "31.walls(50x1).png": {
     "imgWidth": 144.0,
@@ -755,17 +771,17 @@ let hitboxArray = [{
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "40.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "41.walls(50x1).png": {
     "imgWidth": 144.0,
@@ -794,9 +810,9 @@ let hitboxArray = [{
   "44.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
-    "x": 84.0,
+    "x": 40.0,
     "y": 40.0,
-    "width": 20.0,
+    "width": 64.0,
     "height": 64.0
   },
   "45.walls(50x1).png": {
@@ -804,15 +820,15 @@ let hitboxArray = [{
     "imgHeight": 144.0,
     "x": 40.0,
     "y": 40.0,
-    "width": 20.0,
+    "width": 64.0,
     "height": 64.0
   },
   "46.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
-    "x": 84.0,
+    "x": 40.0,
     "y": 40.0,
-    "width": 20.0,
+    "width": 64.0,
     "height": 64.0
   },
   "47.walls(50x1).png": {
@@ -820,24 +836,24 @@ let hitboxArray = [{
     "imgHeight": 144.0,
     "x": 40.0,
     "y": 40.0,
-    "width": 20.0,
+    "width": 64.0,
     "height": 64.0
   },
   "48.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "49.walls(50x1).png": {
     "imgWidth": 144.0,
     "imgHeight": 144.0,
     "x": 40.0,
-    "y": 88.0,
+    "y": 40.0,
     "width": 64.0,
-    "height": 16.0
+    "height": 64.0
   },
   "big_demon_idle_anim_f0.png": {
     "imgWidth": 32,
@@ -902,14 +918,6 @@ let hitboxArray = [{
     "y": 8,
     "width": 23,
     "height": 28
-  },
-  "big_floor_image.png": {
-    "imgWidth": 1916,
-    "imgHeight": 922,
-    "x": 0,
-    "y": 0,
-    "width": 1916,
-    "height": 922
   },
   "big_zombie_idle_anim_f0.png": {
     "imgWidth": 32,
@@ -1950,14 +1958,6 @@ let hitboxArray = [{
     "y": 4,
     "width": 12,
     "height": 16
-  },
-  "medium_floor_image.png": {
-    "imgWidth": 868,
-    "imgHeight": 482,
-    "x": 0,
-    "y": 0,
-    "width": 868,
-    "height": 482
   },
   "muddy_idle_anim_f0.png": {
     "imgWidth": 16,

@@ -69,3 +69,95 @@ class wall extends static_tile {
         super.update();
     }
 }
+
+function makeWall(startX, startY, endX, endY, type) {
+    let padding = 32;
+    let startBottomBlock;
+    let startTopBlock;
+    let endBottomBlock;
+    let endTopBlock;
+    let bottomBlocks;
+    let topBlocks;
+    let zIndex;
+
+    switch (type) {
+        case "FRONT":
+            bottomBlocks = [42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 33, 34];
+            //topBlocks = [15, 16, 39, 40, 48, 49];
+            startBottomBlock = [11];
+            startTopBlock = [9];
+            endBottomBlock = [12];
+            endTopBlock = [10];
+            zIndex = 7;
+            break;
+        case "BACK":
+            bottomBlocks = [42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 33, 34];
+            //topBlocks = [15, 16, 39, 40, 48, 49];
+            startBottomBlock = [13];
+            startTopBlock = [];
+            endBottomBlock = [14];
+            endTopBlock = [];
+            zIndex = 2;
+            break;
+        case "LEFT":
+            topBlocks = [47];
+            startTopBlock = topBlocks;
+            endTopBlock = topBlocks;
+            zIndex = 8;
+            break;
+        case "RIGHT":
+            topBlocks = [46];
+            startTopBlock = topBlocks;
+            endTopBlock = topBlocks;
+            zIndex = 8;
+            break;
+        case "MID":
+            bottomBlocks = [42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 42, 33, 34];
+            //topBlocks = [15, 16, 39, 40, 48, 49];
+            startBottomBlock = [37];
+            startTopBlock = [35];
+            endBottomBlock = [38];
+            endTopBlock = [36];
+            zIndex = 9;
+    }
+
+    if (type == "FRONT" || type == "BACK" || type == "MID") {
+        for (let x = startX; x <= endX; x += padding) {
+            if (x == startX) {
+                let bottomWall = new wall(x, startY, zIndex, startBottomBlock[randomIntFromRange(0, startBottomBlock.length - 1)]);
+                let topWall = new wall(x, bottomWall.y - padding, zIndex, startTopBlock[randomIntFromRange(0, startTopBlock.length - 1)]);
+                physicalObjects.push(bottomWall);
+                if(type != "BACK") physicalObjects.push(topWall);
+
+            } else if (x < endX) {
+                let bottomWall = new wall(x, startY, zIndex, bottomBlocks[randomIntFromRange(0, bottomBlocks.length - 1)]);
+                //let topWall = new wall(x, bottomWall.y - padding, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
+                physicalObjects.push(bottomWall);
+                //physicalObjects.push(topWall);
+
+            } else {
+                let bottomWall = new wall(x, startY, zIndex, endBottomBlock[randomIntFromRange(0, endBottomBlock.length - 1)]);
+                let topWall = new wall(x, bottomWall.y - padding, zIndex, endTopBlock[randomIntFromRange(0, endTopBlock.length - 1)]);
+                physicalObjects.push(bottomWall);
+                if (type != "BACK") physicalObjects.push(topWall);
+            }
+        }
+    } else {
+        for (let y = startY; y <= endY; y += padding) {
+            let topWall = new wall(startX, y, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
+            physicalObjects.push(topWall);
+        }
+    }
+}
+
+class wall_indicators extends static_tile {
+    constructor(x, y, type) {
+        super(wallbuilder_image, "wallbuilder_image(2x1)", 0.5, x, y, 10, 100, 100, 2, 1, 0.5, type);
+    }
+    draw() {
+        super.draw();
+    }
+    update(dt) {
+        super.update();
+    }
+}
