@@ -393,7 +393,7 @@ editor.UI = {
         physicalObjects.push(this.startFloor);
     },
     update: function(dt) {
-        ensureGrid(this.startFloor);
+        ensureGrid();
         physicalObjects.forEach(object => {
             if (object.chosen && colision(mouse, object.hitbox) && editor.UI.setStartPoint && mouse.pressed) {
                 this.followMouse = true;
@@ -454,24 +454,29 @@ editor.UI = {
     }
 }
 
-function ensureGrid(referenceObject) {
+function ensureGrid() {
     let padding = 32;
-    referenceObject.x = Math.round(referenceObject.x);
-    referenceObject.y = Math.round(referenceObject.y);
     for(let i = 0; i < physicalObjects.length; i++) {
         let object = physicalObjects[i];
-        if(object === referenceObject) continue;
         if ((object instanceof static_tile || object instanceof dynamic_tile) && object.hitbox.width % 32 === 0 && object.hitbox.height % 32 === 0) {
             object.x = Math.round(object.x);
             object.y = Math.round(object.y);
-            let zeroLevelX = Math.abs(object.hitbox.x - referenceObject.hitbox.x);
-            let zeroLevelY = Math.abs(object.hitbox.y - referenceObject.hitbox.y);
+            let zeroLevelX = object.hitbox.x;
+            let zeroLevelY = object.hitbox.y;
+            
+            console.log(zeroLevelX % padding);
+
             if (zeroLevelX % padding >= 15 && zeroLevelX % padding < 32) object.x += 1;
             if (zeroLevelX % padding < 15 && zeroLevelX % padding > 0) object.x -=1;
-            if (zeroLevelY % padding > 15 && zeroLevelY % padding < 32) object.y += 1;
-            if (zeroLevelY % padding <= 15 && zeroLevelY % padding > 0) object.y -= 1;
+            if (zeroLevelY % padding >= 15 && zeroLevelY % padding < 32) object.y += 1;
+            if (zeroLevelY % padding < 15 && zeroLevelY % padding > 0) object.y -= 1;
+
+            if (zeroLevelX % padding <= -15 && zeroLevelX % padding > -32) object.x -= 1;
+            if (zeroLevelX % padding > -15 && zeroLevelX % padding < 0) object.x += 1;
+            if (zeroLevelY % padding <= -15 && zeroLevelY % padding > -32) object.y -= 1;
+            if (zeroLevelY % padding > -15 && zeroLevelY % padding < -0) object.y += 1;
         }
-   }
+    }
 }
 
 function folder(x, y, name, content, Subfolder) {
