@@ -185,34 +185,37 @@ thrash.width = thrash.currentImage.dWidth;
 thrash.height = thrash.currentImage.dHeight;
 thrash.destroy = false;
 thrash.bin = [];
-
+thrash.history = [];
+thrash.save = false;
 thrash.draw = function() {
-    thrash.currentImage.draw();
+    //thrash.currentImage.draw();
     thrash.destroy = false;
 }
 
 thrash.update = function(dt) {
     thrash.currentImage.update(this.x, this.y);
     physicalObjects.forEach(object => {
-        if (object.chosen && editor.UI.followMouse) {
-            if (colision(thrash, object.hitbox)) thrash.destroy = true;
+        if (object.chosen) {
+            //if (colision(thrash, object.hitbox)) 
+            if (controller.del) thrash.destroy = true;
         }
-    
     });
      if (thrash.destroy) {
+        if (thrash.save) {
+        } thrash.bin = [], thrash.save = false;
         physicalObjects.forEach(object => {
             if (object.chosen) physicalObjects.splice(physicalObjects.indexOf(object), 1), thrash.bin.push(object);
         });
      }
     if (thrash.destroy) thrash.currentImage.scale = 0.22;
     else thrash.currentImage.scale = 0.2;
-    /*if(controller.z && controller.ctrl) {
+    if(controller.z && controller.ctrl) {
+        thrash.save = true
         thrash.bin.forEach(object => {
-            if (colision(thrash, object.hitbox)) object.x -= 200, object.y -= 200;
             physicalObjects.push(object);
             thrash.bin.splice(thrash.bin.indexOf(object), 1);
         });
-    }*/
+    }
 }
 
 class slider {
@@ -463,9 +466,6 @@ function ensureGrid() {
             object.y = Math.round(object.y);
             let zeroLevelX = object.hitbox.x;
             let zeroLevelY = object.hitbox.y;
-            
-            console.log(zeroLevelX % padding);
-
             if (zeroLevelX % padding >= 15 && zeroLevelX % padding < 32) object.x += 1;
             if (zeroLevelX % padding < 15 && zeroLevelX % padding > 0) object.x -=1;
             if (zeroLevelY % padding >= 15 && zeroLevelY % padding < 32) object.y += 1;
@@ -533,4 +533,3 @@ function folder(x, y, name, content, Subfolder) {
     }
 }
 
-//makeFloor();

@@ -5,6 +5,7 @@ let KEY = {
     DOWN: 83,
     JUMP: undefined,
     ESCAPE: 27,
+    DELETE: 46,
     CTRL: 17,
     Z: 90
 };
@@ -30,6 +31,7 @@ let controller = {
     left: false,
     right: false,
     up: false,
+    del: false,
     down: false,
     jump: false,
     paused: false,
@@ -64,6 +66,9 @@ function togglekey(keyCode, isPressed) {
     }
     if (keyCode == KEY.Z) {
         controller.z = isPressed;
+    }
+    if (keyCode == KEY.DELETE) {
+        controller.del = isPressed;
     }
     if (keyCode == KEY.ESCAPE && isPressed) {
         setPaused(!controller.paused);
