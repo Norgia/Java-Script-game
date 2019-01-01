@@ -86,7 +86,7 @@ class wall_types extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, 9, this.type,));
+                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, this.type, 9));
             }
             mouse.clicked = true;
         }
@@ -137,7 +137,7 @@ class floor_types_premade extends item {
 
 class wall_builder extends item {
     constructor(x, y, type) {
-        super(x, y, undefined, "Wallbuilder " + type); 
+        super(x, y, undefined, "Wallbuilder " + type);
         if(type >= 2) this.type = 0;
         else this.type = type;
         this.images = this.createImages(wallbuilder_image, 2, 1, 0.15, false);
@@ -196,7 +196,7 @@ thrash.update = function(dt) {
     thrash.currentImage.update(this.x, this.y);
     physicalObjects.forEach(object => {
         if (object.chosen) {
-            //if (colision(thrash, object.hitbox)) 
+            //if (colision(thrash, object.hitbox))
             if (controller.del) thrash.destroy = true;
         }
     });
@@ -331,10 +331,10 @@ editor.UI = {
                     new folder(window.innerWidth - 200, 50 + 50, "Characters", [new folder(window.innerWidth - 200 - 40, 50 + 100, "Enemies", [new ogre_idle_anim(window.innerWidth - 200 - 80, 185), new goblin_idle_anim(window.innerWidth - 200 - 80, 215)], true)], false),
                     new folder(window.innerWidth - 200, 50 + 100, "Doors", [new folder(window.innerWidth - 200 - 40, 50 + 150, "Subfolder", [], true)], false),
                     new folder(window.innerWidth - 200, 50 + 150, "Weapons", [new folder(window.innerWidth - 200 - 40, 50 + 200, "Subfolder", [], true)], false),
-                    new folder(window.innerWidth - 200, 50 + 200, "Walls", [new folder(window.innerWidth - 200 - 40, 50 + 250, "Design", [new wall_types(window.innerWidth - 200 - 80, 335, 3), 
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 360, 4), 
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 385, 5), 
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 410, 6), 
+                    new folder(window.innerWidth - 200, 50 + 200, "Walls", [new folder(window.innerWidth - 200 - 40, 50 + 250, "Design", [new wall_types(window.innerWidth - 200 - 80, 335, 3),
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 360, 4),
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 385, 5),
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 410, 6),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 435, 7),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 460, 8),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 485, 17),
@@ -344,9 +344,9 @@ editor.UI = {
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 585, 21),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 610, 22),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 635, 23),
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 660, 24), 
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 685, 25), 
-                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 710, 26), 
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 660, 24),
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 685, 25),
+                                                                                                                                          new wall_types(window.innerWidth - 200 - 80, 710, 26),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 735, 27),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 760, 28),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 785, 29),
@@ -385,7 +385,7 @@ editor.UI = {
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 40, 510, 1),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 40, 535, 2),
                                                                                                                                           ], true)], false)],
-                                                                                                                                          
+
     init: function() {
         for(let i = 0; i < this.parentFolders.length; i++) {
             utilityObjects.push(this.parentFolders[i]);
@@ -404,7 +404,7 @@ editor.UI = {
             }
             if (object.chosen && this.showInformationSlider.value == "true") object.infomrationBox.show = true;
             else object.infomrationBox.show = false;
-            
+
         });
         physicalObjects.forEach(object => {
             if (!this.followMouse) {
@@ -533,3 +533,24 @@ function folder(x, y, name, content, Subfolder) {
     }
 }
 
+function extractData(name) {
+  for(let i = 0; i < physicalObjects.length; i++) {
+    let object = physicalObjects[i];
+    let type = object.constructor.name;
+    let string;
+
+    if(i === physicalObjects.length - 1) string = "[" + type + ", " + object.x + ", " + object.y + "]";
+    else string = "[" + type + "" + ", " + object.x + ", " + object.y + ", " + object.zIndex + ", " + object.type + "], ";
+    if(i === 0) string = "let " + name + " = [" + string;
+    if(i === physicalObjects.length - 1) string = string + "];";
+    console.log(string);
+  }
+}
+
+function buildRoomFromData(data) {
+  physicalObjects = []; // clear all old objects
+  for(let i = 0; i < data.length-30; i++) {
+    let str = "physicalObjects.push(" + "new " + data[i][0] + "("+data[i][1] + ", " + data[i][2] + ", "+ data[i][3] + ", " + data[i][4] + "));";
+    eval(str);
+  }
+}

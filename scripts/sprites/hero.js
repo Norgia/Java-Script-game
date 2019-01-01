@@ -171,12 +171,12 @@ class character extends object {
     attack() {
 
     }
-    
+
     die() {
 
     }
 }
-    
+
 let hero = new character(window.innerWidth / 2, window.innerHeight / 2, 5, "knight_red(9x1)", "green", knight_red, knight_red_flipped, knight_red_hit, knight_red_flipped_hit, 9, 1, 0.5, [1, 2, 3, 4], [5, 6, 7, 8], 250, 100);
 
 physicalObjects.push(hero);
@@ -191,7 +191,7 @@ hero.draw = function() {
 }
 
 hero.update = function(dt) {
-    if (controller.right && !controller.left) hero.move.right(dt, this);  
+    if (controller.right && !controller.left) hero.move.right(dt, this);
     if (controller.left && !controller.right) hero.move.left(dt, this);
     if (controller.up && !controller.down)  hero.move.up(dt, this);
     if (controller.down && !controller.up) hero.move.down(dt, this);
@@ -285,8 +285,8 @@ class weapon extends object {
 }
 
 class anime_sword extends weapon {
-    constructor(x, y, owner) {
-        super(x, y, "weapon_anime_sword", 2, owner, weapon_anime_sword, weapon_anime_sword, 10, 1);
+    constructor(x, y) {
+        super(x, y, "weapon_anime_sword", 2, undefined, weapon_anime_sword, weapon_anime_sword, 10, 1);
     }
 
     draw() {
@@ -295,7 +295,7 @@ class anime_sword extends weapon {
 
     update(dt) {
         super.update(dt);
-        
+
     }
 }
 

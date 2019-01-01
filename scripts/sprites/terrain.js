@@ -20,7 +20,7 @@ class static_tile extends object {
 }
 
 class dynamic_tile extends object {
-    
+
 }
 
 class floor extends static_tile {
@@ -59,7 +59,7 @@ class premade_floor extends static_tile {
 }
 
 class wall extends static_tile {
-    constructor(x, y, zIndex, type) {
+    constructor(x, y, type, zIndex) {
         super(walls, "walls(50x1)", 0.5, x, y, zIndex, 100, 100, 50, 1, 0.5, type);
     }
     draw() {
