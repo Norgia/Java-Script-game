@@ -74,22 +74,37 @@ Maze.prototype.build = function(dir)
 			}
 		}
 	}
-
 	this.toGrid();
 };
+
+Maze.prototype.createRooms = function(amount) {
+	for(let i = 0; i < amount; i++) {
+		let randomCell = 0;
+		let xCord = undefined;
+		let yCord = undefined;
+		while (randomCell != 1) {
+			xCord = randomIntFromRange(0, this.gridW - 1);
+			yCord = randomIntFromRange(0, this.gridH - 1);
+			randomCell = this.gridMap[xCord][yCord];
+		}
+		this.gridMap[xCord][yCord] = 2;
+	}
+}
+
 Maze.prototype.draw = function() {
 
 	if(c==null) { return; }
-
-	c.fillStyle = "#000000";
 
 	for(var y = 0; y < this.gridH; ++y)
 	{
 		if(this.gridMap[y] == undefined) continue;
 		for(var x = 0; x < this.gridW; ++x)
 		{
-
-			if(this.gridMap[y][x]==0) { c.fillRect(10 * x, 10 * y, 10, 10); }
+			c.fillStyle = "#000000";
+			if(this.gridMap[x][y]==0) { c.fillRect(10 * x, 10 * y, 10, 10); }
+			
+			c.fillStyle = "blue";
+			if (this.gridMap[x][y]==2) { c.fillRect(10 * x, 10 * y, 10, 10);}
 		}
 	}
 };
@@ -98,6 +113,59 @@ Maze.prototype.update = function(dt) {
 
 };
 
-var mazeW = 5, mazeH = 5;
+Maze.prototype.roomTypes = function() {
+	let allTypes = [];
+	
+	for (var y = 0; y < this.gridH; ++y) {
+		if (this.gridMap[y] == undefined) continue;
+		for (var x = 0; x < this.gridW; ++x) {
+			let self = this.gridMap[x][y];
+			if (self == 0) continue;
+
+			let TMCell = this.gridMap[x][y-1];
+			
+			let MLCell = this.gridMap[x-1][y];
+			let MRCell = this.gridMap[x+1][y];
+
+			let BMCell = this.gridMap[x][y+1];
+
+			// type 
+		
+			let type = [];
+			type.push(x, y);
+
+			// one path/3 blocks/4c3 = 4
+			if(MLCell == 0 && BMCell == 0 && MRCell == 0) type.push("Dead end bottom");
+			else if(TMCell == 0 && MLCell == 0 && BMCell == 0) type.push("Dead end left");
+			else if(MLCell == 0 && TMCell == 0 && MRCell == 0) type.push("Dead end top");
+			else if(MRCell == 0 && TMCell == 0 && BMCell == 0) type.push("Dead end right");
+			// two paths/2 blocks/4c2 = 6
+			else if(MLCell == 0 && MRCell == 0) type.push("Vertical path");
+			else if(TMCell == 0 && BMCell == 0) type.push("Horizontal path");
+			else if(MLCell == 0 && TMCell == 0) type.push("Down and right");
+			else if(TMCell == 0 && MRCell == 0) type.push("Down and left");
+			else if(MLCell == 0 && BMCell == 0) type.push("Up and right");
+			else if(BMCell == 0 && MRCell == 0) type.push("Up and left");
+			// three paths/1 block/4c1 = 4
+			else if(TMCell == 0) type.push("Down and left and right");
+			else if(MRCell == 0) type.push("Down and up and left");
+			else if(BMCell == 0) type.push("Up and left and right");
+			else if(MLCell == 0) type.push("Down and up and right")
+			// four paths/ 0 blocks/4c0 = 1
+			else {
+				type.push("Four way cross");
+			}
+			if (self == 2) type.push("Room");
+			allTypes.push(type);
+		}
+	}
+	console.log(allTypes);
+	//return allTypes;
+}
+
+var mazeW = 10, mazeH = 10;
 let test = new Maze(mazeW, mazeH, "nw");
-//utilityObjects.push(test);
+test.createRooms(5);
+test.roomTypes();
+
+utilityObjects.push(test);

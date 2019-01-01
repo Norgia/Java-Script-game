@@ -409,9 +409,9 @@ editor.UI = {
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 660, 42),
                                                                                                                                           new wall_types(window.innerWidth - 200 - 80, 685, 43)
                                                                                                                                           ], true), new folder(window.innerWidth - 200 - 40, 450, "Builder", [
-                                                                                                                                            new wall_builder(window.innerWidth - 200 - 40, 485, 0),
-                                                                                                                                            new wall_builder(window.innerWidth - 200 - 40, 510, 1),
-                                                                                                                                            new wall_builder(window.innerWidth - 200 - 40, 535, 2),
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 80, 485, 0),
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 80, 510, 1),
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 80, 535, 2),
                                                                                                                                           ], true)], false), new folder(window.innerWidth - 200, 300, "Saved rooms", [new load_rooms(window.innerWidth - 200 - 40, 335, undefined, "test_map", test_map)])],
 
     init: function() {
@@ -553,9 +553,9 @@ function folder(x, y, name, content, Subfolder) {
     }
 
     this.expand = function() {
-        for(let i = 0; i < this.content.length; i++) {
-            utilityObjects.push(this.content[i]);
-        }
+         for (let i = 0; i < this.content.length; i++) {
+             utilityObjects.push(this.content[i]);
+         }
     }
     this.collapse = function() {
         for (let i = 0; i < this.content.length; i++) {
