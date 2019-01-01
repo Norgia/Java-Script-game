@@ -35,6 +35,7 @@ let walls = document.getElementById("walls_image");
 let weapon_anime_sword = document.getElementById("weapon_anime_sword");
 
 //UI
+let grid_image = document.getElementById("grid_image");
 let wallbuilder_image = document.getElementById("wallbuilder_image")
 let cursor_image = document.getElementById("cursor_image");
 let folder_image_closed = document.getElementById("folder_image_closed");

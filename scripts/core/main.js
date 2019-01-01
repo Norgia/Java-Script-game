@@ -42,6 +42,9 @@ game.draw = function() {
   physicalObjects.forEach(object => {
     object.draw();
   });
+  c.globalAlpha = 0.25;
+  if (editor.UI.showGridSlider.value == "true") c.drawImage(grid_image, 0, 0);
+  c.globalAlpha = 1;
   if(game.utils.enabled) game.utils.draw();
   //mouse.draw();
 }

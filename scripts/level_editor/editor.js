@@ -267,7 +267,7 @@ class slider {
         else this.backgorundRect.color = "rgba(211, 211, 211, 0.5)", this.nobSquare.color = "rgb(189, 153, 232, 0.5)";
 
         if (colision(mouse, this.backgorundRect) && mouse.pressed) this.nobSquare.x = mouse.x;
-        this.value = Math.round(((this.nobSquare.x - this.backgorundRect.x) / this.backgorundRect.width) * this.interval)
+        this.value = Math.round(((this.nobSquare.x - this.backgorundRect.x) / this.backgorundRect.width) * this.interval);
     }
 }
 
@@ -320,7 +320,9 @@ editor.UI = {
     spawnAmountSlider: new slider(window.innerWidth - 250, window.innerHeight-220, 100, 20, 100, "Spawn amount"),
     showInformationSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-260, 20, "Information"),
     changeBackgroundSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-300, 20, "Background"),
-    rotationSlider: new rotation_slider(window.innerWidth - 250, window.innerHeight - 140, 100, 20, 3, "Rotation"),
+    changeZindexSlider: new slider(window.innerWidth - 250, window.innerHeight - 140, 100, 20, 9, "Change Z-index (ctrl)"),
+    showGridSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight - 60, 20, "Grid"),
+    rotationSlider: new rotation_slider(window.innerWidth - 250, window.innerHeight - 100, 100, 20, 3, "Rotation"),
     mousePoint: {
         x: undefined,
         y: undefined,
@@ -412,11 +414,11 @@ editor.UI = {
         }
         utilityObjects.push(this.mouseRect);
         utilityObjects.push(thrash);
-        utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider);
+        utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider);
         physicalObjects.push(this.startFloor);
     },
     update: function(dt) {
-        ensureGrid();
+        ensureGrid(true);
         physicalObjects.forEach(object => {
             if (object.chosen && colision(mouse, object.hitbox) && editor.UI.setStartPoint && mouse.pressed) {
                 this.followMouse = true;
@@ -424,6 +426,7 @@ editor.UI = {
             }
             if (object.chosen && this.showInformationSlider.value == "true") object.infomrationBox.show = true;
             else object.infomrationBox.show = false;
+            if (object.chosen && controller.ctrl) object.zIndex = this.changeZindexSlider.value;
 
         });
         physicalObjects.forEach(object => {
@@ -441,9 +444,11 @@ editor.UI = {
             utilityObjects.splice(utilityObjects.indexOf(this.showInformationSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.zIndexSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.spawnAmountSlider), 1);
+            utilityObjects.splice(utilityObjects.indexOf(this.changeZindexSlider), 1);
+            utilityObjects.splice(utilityObjects.indexOf(this.showGridSlider), 1);
         }
         if (this.hideSlider.value == "false" && utilityObjects.indexOf(this.changeBackgroundSlider) == -1) {
-            utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider);
+            utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider);
         }
         if (!mouse.pressed) {
             this.followMouse = false;
