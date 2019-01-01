@@ -177,6 +177,26 @@ class wall_builder extends item {
     }
 }
 
+class load_rooms extends item {
+    constructor(x, y, type, name, data) {
+        super(x, y, type, name);
+        this.type = undefined;
+        this.data = data;
+        this.images = this.createImages(floors, 13, 1, 0.15, false);
+        this.currentImage = this.images[0];
+        this.images = [];
+        this.width = this.currentImage.dWidth;
+        this.height = this.currentImage.dHeight;
+        this.hitbox = new rectAngle(this.x, this.y, this.width, this.height, "black", false);
+    }
+    update(dt) {
+        if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
+            buildRoomFromData(this.data);
+            mouse.clicked = true;
+        }
+    }
+}
+
 let thrash = new Object();
 thrash.x = window.innerWidth - 100;
 thrash.y = window.innerHeight - 100;
@@ -384,7 +404,7 @@ editor.UI = {
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 40, 485, 0),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 40, 510, 1),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 40, 535, 2),
-                                                                                                                                          ], true)], false)],
+                                                                                                                                          ], true)], false), new folder(window.innerWidth - 200, 300, "Saved rooms", [new load_rooms(window.innerWidth - 200 - 40, 335, undefined, "test_map", test_map)])],
 
     init: function() {
         for(let i = 0; i < this.parentFolders.length; i++) {
