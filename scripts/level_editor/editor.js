@@ -86,7 +86,9 @@ class wall_types extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new wall(this.x + i - 2*this.hitbox.width, this.y + i - 2*this.hitbox.height, this.type, 9));
+                let padding = 32;
+                let spawnX = this.x - i * padding - 2*padding;
+                physicalObjects.push(new wall(spawnX, this.y, this.type, 9));
             }
             mouse.clicked = true;
         }
@@ -107,7 +109,9 @@ class floor_types extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new floor(this.x + i - 2 * this.hitbox.width, this.y + i - 2 * this.hitbox.height, this.type));
+                let padding = 32;
+                let spawnX = this.x - i * padding - 2*padding;
+                physicalObjects.push(new floor(spawnX, this.y, this.type));
             }
             mouse.clicked = true;
         }
@@ -128,7 +132,9 @@ class floor_types_premade extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             for (let i = 0; i < editor.UI.spawnAmountSlider.value; i++) {
-                physicalObjects.push(new premade_floor(this.x + i - 2 * this.hitbox.width, this.y + i - 2 * this.hitbox.height, this.type));
+                let padding = 32;
+                let spawnX = this.x - i * padding - 2*padding;
+                physicalObjects.push(new premade_floor(spawnX, this.y, this.type));
             }
             mouse.clicked = true;
         }
