@@ -534,22 +534,25 @@ function folder(x, y, name, content, Subfolder) {
 }
 
 function extractData(name) {
-  for(let i = 0; i < physicalObjects.length; i++) {
+    for(let i = 0; i < physicalObjects.length; i++) {
     let object = physicalObjects[i];
+    if(object === hero) continue;
     let type = object.constructor.name;
     let string;
 
-    if(i === physicalObjects.length - 1) string = "[" + type + ", " + object.x + ", " + object.y + "]";
-    else string = "[" + type + "" + ", " + object.x + ", " + object.y + ", " + object.zIndex + ", " + object.type + "], ";
+    if (i === physicalObjects.length - 1) string = "[" + "'" + type + "'" + ", " + object.x + ", " + object.y + ", " + object.type + ", " + object.zIndex + "]";
+    else string = "[" + "'" + type + "'" + ", " + object.x + ", " + object.y + ", "  + object.type + "," + object.zIndex + "], ";
     if(i === 0) string = "let " + name + " = [" + string;
     if(i === physicalObjects.length - 1) string = string + "];";
+    
     console.log(string);
   }
 }
 
 function buildRoomFromData(data) {
   physicalObjects = []; // clear all old objects
-  for(let i = 0; i < data.length-30; i++) {
+  physicalObjects.push(hero);
+  for(let i = 0; i < data.length; i++) {
     let str = "physicalObjects.push(" + "new " + data[i][0] + "("+data[i][1] + ", " + data[i][2] + ", "+ data[i][3] + ", " + data[i][4] + "));";
     eval(str);
   }

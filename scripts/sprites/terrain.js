@@ -124,27 +124,27 @@ function makeWall(startX, startY, endX, endY, type) {
     if (type == "FRONT" || type == "BACK" || type == "MID") {
         for (let x = startX; x <= endX; x += padding) {
             if (x == startX) {
-                let bottomWall = new wall(x, startY, zIndex, startBottomBlock[randomIntFromRange(0, startBottomBlock.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, zIndex, startTopBlock[randomIntFromRange(0, startTopBlock.length - 1)]);
+                let bottomWall = new wall(x, startY, startBottomBlock[randomIntFromRange(0, startBottomBlock.length - 1)], zIndex);
+                let topWall = new wall(x, bottomWall.y - padding, startTopBlock[randomIntFromRange(0, startTopBlock.length - 1)], zIndex);
                 physicalObjects.push(bottomWall);
                 if(type != "BACK") physicalObjects.push(topWall);
 
             } else if (x < endX) {
-                let bottomWall = new wall(x, startY, zIndex, bottomBlocks[randomIntFromRange(0, bottomBlocks.length - 1)]);
+                let bottomWall = new wall(x, startY, bottomBlocks[randomIntFromRange(0, bottomBlocks.length - 1)], zIndex);
                 //let topWall = new wall(x, bottomWall.y - padding, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
                 physicalObjects.push(bottomWall);
                 //physicalObjects.push(topWall);
 
             } else {
-                let bottomWall = new wall(x, startY, zIndex, endBottomBlock[randomIntFromRange(0, endBottomBlock.length - 1)]);
-                let topWall = new wall(x, bottomWall.y - padding, zIndex, endTopBlock[randomIntFromRange(0, endTopBlock.length - 1)]);
+                let bottomWall = new wall(x, startY, endBottomBlock[randomIntFromRange(0, endBottomBlock.length - 1)], zIndex);
+                let topWall = new wall(x, bottomWall.y - padding, endTopBlock[randomIntFromRange(0, endTopBlock.length - 1)], zIndex);
                 physicalObjects.push(bottomWall);
                 if (type != "BACK") physicalObjects.push(topWall);
             }
         }
     } else {
         for (let y = startY; y <= endY; y += padding) {
-            let topWall = new wall(startX, y, zIndex, topBlocks[randomIntFromRange(0, topBlocks.length - 1)]);
+            let topWall = new wall(startX, y, topBlocks[randomIntFromRange(0, topBlocks.length - 1)], zIndex);
             physicalObjects.push(topWall);
         }
     }
@@ -158,6 +158,6 @@ class wall_indicators extends static_tile {
         super.draw();
     }
     update(dt) {
-        super.update();
+        super.update(dt);
     }
 }
