@@ -132,6 +132,11 @@ addEventListener("resize", () => {
     canvas.height = innerHeight;
 });
 
+window.addEventListener('contextmenu', function (ev) {
+    ev.preventDefault();
+    return false;
+}, false);
+
 function makeFloor() {
     let padding = 32;
     let width = window.innerWidth;
@@ -213,3 +218,9 @@ class circle {
         
     }
 }
+
+function drawGrid() {
+    c.globalAlpha = 0.25;
+    if (editor.UI.showGridSlider.value == "true") c.drawImage(grid_image, 0, 0);
+    c.globalAlpha = 1;
+};

@@ -5,6 +5,10 @@ class object {
     constructor(x, y, zIndex, width, height, hitbox_color) {
         this.x = x;
         this.y = y;
+        this.dest = {
+            x: this.x - game.camera.x,
+            y: this.y - game.camera.y
+        };
         this.width = width;
         this.height = height;
         this.gravity = 9.82;
@@ -42,8 +46,8 @@ class object {
                 }
             },
             update: function(dt, self) {
-                this.rect.x = self.x + self.width + 10;
-                this.rect.y = self.y - 100;
+                this.rect.x = self.dest.x + self.width + 10;
+                this.rect.y = self.dest.y - 100;
             }
         };
     }
@@ -67,11 +71,13 @@ class object {
              this.distanceX = undefined;
              this.distanceY = undefined;
         }
+        this.dest.x = this.x - game.camera.x;
+        this.dest.y = this.y - game.camera.y;
     }
     updateImgHitbox(imageFilename, scale) {
         let fullname = imageFilename + ".png";
-        this.hitbox.x = this.x + hitboxArray[0][fullname].x * scale;
-        this.hitbox.y = this.y + hitboxArray[0][fullname].y * scale;
+        this.hitbox.x = this.dest.x + hitboxArray[0][fullname].x * scale;
+        this.hitbox.y = this.dest.y + hitboxArray[0][fullname].y * scale;
         this.hitbox.width = hitboxArray[0][fullname].width * scale;
         this.hitbox.height = hitboxArray[0][fullname].height * scale;
     }
@@ -79,8 +85,8 @@ class object {
         let fullname = this.itarater +"."+ imageFilename + ".png";
         //if (this.loopImages == this.idle) fullname = this.itarater + "." + fullname;
         //else fullname = this.itarater + 3 + "." + fullname;
-        this.hitbox.x = this.x + hitboxArray[0][fullname].x*scale;
-        this.hitbox.y = this.y + hitboxArray[0][fullname].y*scale;
+        this.hitbox.x = this.dest.x + hitboxArray[0][fullname].x*scale;
+        this.hitbox.y = this.dest.y + hitboxArray[0][fullname].y*scale;
         this.hitbox.width = hitboxArray[0][fullname].width*scale;
         this.hitbox.height = hitboxArray[0][fullname].height*scale;
     }

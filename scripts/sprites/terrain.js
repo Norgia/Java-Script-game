@@ -13,7 +13,7 @@ class static_tile extends object {
         super.draw();
     }
     update(dt) {
-        this.images[this.type].update(this.x, this.y);
+        this.images[this.type].update(this.dest.x, this.dest.y);
         super.update(dt);
         this.updateSheetHitbox(this.hitbox_imageFilename, this.hitbox_scale);
     }
@@ -51,8 +51,8 @@ class premade_floor extends static_tile {
     }
     update(dt) {
         super.update(dt);
-        this.hitbox.x = this.x;
-        this.hitbox.y = this.y;
+        this.hitbox.x = this.dest.x;
+        this.hitbox.y = this.dest.y;
         this.hitbox.width = this.images[this.type].dWidth;
         this.hitbox.height = this.images[this.type].dHeight;
     }

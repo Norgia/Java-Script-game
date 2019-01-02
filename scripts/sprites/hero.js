@@ -126,7 +126,7 @@ class character extends object {
         this.movmentVector2D.update();
         this.updateSheetHitbox();
         super.update(dt);
-        if (this.currentFrame != undefined) this.currentFrame.update(this.x, this.y);
+        if (this.currentFrame != undefined) this.currentFrame.update(this.dest.x, this.dest.y);
     }
     updateAngle() {
          let halfQarter = Math.PI / 4;
@@ -303,5 +303,5 @@ class anime_sword extends weapon {
 for (let i = 0; i < 10; i++) {
     let swordX = Math.random() * window.innerWidth;
     let swordY = Math.random() * window.innerHeight;
-    physicalObjects.push(new anime_sword(swordX, swordY, undefined));
+    //physicalObjects.push(new anime_sword(swordX, swordY, undefined));
 }

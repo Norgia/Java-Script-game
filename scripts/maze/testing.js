@@ -130,7 +130,6 @@ Maze.prototype.roomTypes = function() {
 			let BMCell = this.gridMap[x][y+1];
 
 			// type 
-		
 			let type = [];
 			type.push(x, y);
 
@@ -163,9 +162,9 @@ Maze.prototype.roomTypes = function() {
 	//return allTypes;
 }
 
-var mazeW = 10, mazeH = 10;
+var mazeW = 7, mazeH = 7;
 let test = new Maze(mazeW, mazeH, "nw");
-test.createRooms(5);
+test.createRooms(10);
 test.roomTypes();
 
 utilityObjects.push(test);

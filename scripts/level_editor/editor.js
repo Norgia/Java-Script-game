@@ -325,17 +325,18 @@ editor.UI = {
     zIndexSlider: new small_slider(window.innerWidth - 250, window.innerHeight-180, 100, 20, 10, "Z-index"),
     spawnAmountSlider: new slider(window.innerWidth - 250, window.innerHeight-220, 100, 20, 100, "Spawn amount"),
     showInformationSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-260, 20, "Information"),
-    changeBackgroundSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-300, 20, "Background"),
+    changeBackgroundSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight-300, 20, "Editor mode"),
     changeZindexSlider: new slider(window.innerWidth - 250, window.innerHeight - 140, 100, 20, 9, "Change Z-index (ctrl)"),
     showGridSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight - 60, 20, "Grid"),
     rotationSlider: new rotation_slider(window.innerWidth - 250, window.innerHeight - 100, 100, 20, 3, "Rotation"),
+    hideCamera: new onOff_slider(window.innerWidth - 250, window.innerHeight - 20, 20, "Hide camera"),
     mousePoint: {
         x: undefined,
         y: undefined,
         set: false
     },
     showInformation: false,
-    startFloor: new premade_floor(window.innerWidth/5, window.innerHeight/5, 0),
+    startFloor: new premade_floor(600, 300, 0),
     parentFolders: [new folder(window.innerWidth - 200, 50, "Floor", [new folder(window.innerWidth - 200 - 40, 50 + 50, "Premade", [new floor_types_premade(window.innerWidth - 200 - 80, 135, 0),
                                                                                                                                     new floor_types_premade(window.innerWidth - 200 - 80, 160, 1),
                                                                                                                                     new floor_types_premade(window.innerWidth - 200 - 80, 185, 2),
@@ -412,7 +413,9 @@ editor.UI = {
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 485, 0),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 510, 1),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 535, 2),
-                                                                                                                                          ], true)], false), new folder(window.innerWidth - 200, 300, "Saved rooms", [new load_rooms(window.innerWidth - 200 - 40, 335, undefined, "test_map", test_map)])],
+                                                                                                                                          ], true)], false), new folder(window.innerWidth - 200, 300, "Saved rooms", [
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 335, undefined, "test_map", test_map), 
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 360, undefined, "test_map_2", test_map_2)])],
 
     init: function() {
         for(let i = 0; i < this.parentFolders.length; i++) {
@@ -420,11 +423,11 @@ editor.UI = {
         }
         utilityObjects.push(this.mouseRect);
         utilityObjects.push(thrash);
-        utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider);
+        utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider, this.hideCamera);
         physicalObjects.push(this.startFloor);
     },
     update: function(dt) {
-        ensureGrid(true);
+        if(this.changeBackgroundSlider.value == "true") ensureGrid();
         physicalObjects.forEach(object => {
             if (object.chosen && colision(mouse, object.hitbox) && editor.UI.setStartPoint && mouse.pressed) {
                 this.followMouse = true;
@@ -452,10 +455,12 @@ editor.UI = {
             utilityObjects.splice(utilityObjects.indexOf(this.spawnAmountSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.changeZindexSlider), 1);
             utilityObjects.splice(utilityObjects.indexOf(this.showGridSlider), 1);
+            utilityObjects.splice(utilityObjects.indexOf(this.hideCamera), 1);
         }
         if (this.hideSlider.value == "false" && utilityObjects.indexOf(this.changeBackgroundSlider) == -1) {
-            utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider);
+            utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider, this.hideCamera);
         }
+        if(this.hideCamera.value == "false") game.camera.draw();
         if (!mouse.pressed) {
             this.followMouse = false;
             mouse.follow = false
