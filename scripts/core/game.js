@@ -35,11 +35,17 @@ game.physicsEngine = function () {
 
 }
 
-game.camera = new rectAngle(0, 0, 1920-400, 1080-400, "orange", false);
+game.camera = new rectAngle(0, 0, 800, 800, "orange", false);
 game.camera.lastPos = {
     x: game.camera.x,
     y: game.camera.y
 };
+game.camera.padding = {
+    x: 100,
+    y:-200
+};
+game.camera.boundBox = new rectAngle(game.camera.padding.x, game.camera.padding.y, window.innerWidth - 2*game.camera.padding.x, window.innerHeight - 2*game.camera.padding.y, "orange", false);
+
 game.camera.update = function (dt) {
     //Move camera after plaeyer pos
     if (editor.UI != undefined && editor.UI.changeBackgroundSlider.value == "true") {
@@ -48,16 +54,20 @@ game.camera.update = function (dt) {
     }   
     else {
         //Motion effect
-        this.lastPos.x += ((hero.x - game.camera.width / 2) - this.lastPos.x) * 0.01;
-        this.lastPos.y += ((hero.y - game.camera.height / 2) - this.lastPos.y) * 0.01;
+
+        //Hardcoded camera center values;
+        this.lastPos.x += ((hero.x - 1.18*game.camera.width) - this.lastPos.x) * 0.01;
+        if(window.innerHeight == 969) this.lastPos.y += ((hero.y - game.camera.height/1.8) - this.lastPos.y) * 0.01;
+        else if (window.innerHeight == 1080) this.lastPos.y += ((hero.y - game.camera.height / 1.585) - this.lastPos.y) * 0.01;
+       
         game.camera.x = this.lastPos.x;
         game.camera.y = this.lastPos.y;
     }
     //Check bounds of caemra
-    if (game.camera.x < 0) game.camera.x = 0;
-    if (game.camera.y < 0) game.camera.y = 0;
-    if (game.camera.x + game.camera.width > window.innerWidth) game.camera.x = window.innerWidth - game.camera.width;
-    if (game.camera.y + game.camera.height > window.innerHeight) game.camera.y = window.innerHeight - game.camera.height;
+    if (game.camera.x < game.camera.boundBox.x) game.camera.x = game.camera.boundBox.x;
+    if (game.camera.y < game.camera.boundBox.y) game.camera.y = game.camera.boundBox.y;
+    if (game.camera.x + game.camera.width > game.camera.boundBox.x + game.camera.boundBox.width) game.camera.x = game.camera.boundBox.x + game.camera.boundBox.width - game.camera.width;
+    if (game.camera.y + game.camera.height > game.camera.boundBox.y + game.camera.boundBox.height) game.camera.y = game.camera.boundBox.y + game.camera.boundBox.height - game.camera.height;
 }
 
 game.draw = function () {

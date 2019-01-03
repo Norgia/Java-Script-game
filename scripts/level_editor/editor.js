@@ -145,6 +145,7 @@ class wall_builder extends item {
     constructor(x, y, type) {
         super(x, y, undefined, "Wallbuilder " + type);
         if(type >= 2) this.type = 0;
+        //if(type == 3) this.type = 1;
         else this.type = type;
         this.images = this.createImages(wallbuilder_image, 2, 1, 0.15, false);
         this.currentImage = this.images[this.type];
@@ -156,7 +157,7 @@ class wall_builder extends item {
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
             if (this.type < 2) physicalObjects.push(new wall_indicators(this.x + this.hitbox.width, this.y + this.hitbox.height, this.type));
-            else {
+            else if(this.type == 2){
                 let startRect = undefined;
                 let endRect = undefined;
                 physicalObjects.forEach(object => {
@@ -177,6 +178,13 @@ class wall_builder extends item {
                     endRect.x = sRectSaveY;
                 }
                 makeWall(startRect.x, startRect.y, endRect.x, endRect.y, editor.UI.rotationSlider.value);
+            }
+            else {
+                 physicalObjects.forEach(object => {
+                     if (object instanceof wall_indicators) {
+                         physicalObjects.splice(physicalObjects.indexOf(object), 1);
+                     }
+                 });
             }
             mouse.clicked = true;
         }
@@ -413,6 +421,7 @@ editor.UI = {
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 485, 0),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 510, 1),
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 535, 2),
+                                                                                                                                            new wall_builder(window.innerWidth - 200 - 80, 560, 3)
                                                                                                                                           ], true)], false), new folder(window.innerWidth - 200, 300, "Saved rooms", [
                                                                                                                                             new load_rooms(window.innerWidth - 200 - 40, 335, undefined, "test_map", test_map), 
                                                                                                                                             new load_rooms(window.innerWidth - 200 - 40, 360, undefined, "test_map_2", test_map_2)])],
@@ -460,7 +469,29 @@ editor.UI = {
         if (this.hideSlider.value == "false" && utilityObjects.indexOf(this.changeBackgroundSlider) == -1) {
             utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider, this.hideCamera);
         }
-        if(this.hideCamera.value == "false") game.camera.draw();
+        if(this.hideCamera.value == "false")  {
+            c.strokeStyle = "orange";
+            c.beginPath();
+            c.moveTo(window.innerWidth / 2, 0);
+            c.lineTo(window.innerWidth / 2, window.innerHeight);
+            c.stroke();
+
+            c.beginPath();
+            c.moveTo(0, window.innerHeight / 2);
+            c.lineTo(window.innerWidth, window.innerHeight / 2);
+            c.stroke();
+            game.camera.boundBox.draw();
+            game.camera.draw();
+            c.beginPath();
+            c.moveTo(game.camera.x, game.camera.y + game.camera.height/2);
+            c.lineTo(game.camera.x + game.camera.width, game.camera.y + game.camera.height/2);
+            c.stroke();
+
+            c.beginPath();
+            c.moveTo(game.camera.x + game.camera.width/2, game.camera.y);
+            c.lineTo(game.camera.x + game.camera.width/2, game.camera.y + game.camera.height);
+            c.stroke();
+        }
         if (!mouse.pressed) {
             this.followMouse = false;
             mouse.follow = false
@@ -593,3 +624,36 @@ function buildRoomFromData(data) {
     eval(str);
   }
 }
+
+function initRoom(objects, camera) {
+    //Build camera
+    let minX = Infinity;
+    let maxX = 0;
+
+    let minY = Infinity;
+    let maxY = 0;
+
+    objects.forEach(object => {
+        if(object instanceof static_tile || object instanceof dynamic_tile || object instanceof premade_floor) {
+            if(object.x < minX) minX = object.x;
+            if(object.y < minY) minY = object.y;
+            if(object.x + object.hitbox.width > maxX) maxX = object.x + object.hitbox.width;
+            if(object.y + object.hitbox.height > maxY) maxY = object.y + object.hitbox.height;
+        }
+    });
+
+    let roomCenterX = (minX + maxX)/2
+    let roomCenterY = (minY + maxY)/2;
+
+    let factor = -1;
+    let distanceX = roomCenterX-1920/2;
+    let distanceY = roomCenterY-1080/2;
+
+    //Translate to center of window
+    objects.forEach(object => {
+        object.x += distanceX*factor;
+        object.y += distanceY*factor;
+    });
+}
+
+
