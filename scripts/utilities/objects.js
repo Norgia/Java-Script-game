@@ -52,7 +52,7 @@ class object {
         };
     }
     draw(){
-        this.infomrationBox.draw(this.hitbox, this);
+        //this.infomrationBox.draw(this.hitbox, this);
     }
     update(dt) {
         if (this.chosen) {

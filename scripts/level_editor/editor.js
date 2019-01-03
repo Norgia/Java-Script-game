@@ -29,8 +29,8 @@ class item {
     draw() {
         this.currentImage.draw()
         c.font = "small-caps 10px Arial";
-        c.fillStyle = "black";
-        if (colision(mouse, this.hitbox)) c.font = "small-caps 11px Arial", c.fillStyle = "rgb(189, 153, 232)";
+        c.fillStyle = "orange";
+        if (colision(mouse, this.hitbox)) c.font = "small-caps 11px Arial", c.fillStyle = "RGB(0, 255, 255)";
         let textWidth = c.measureText(this.name).width;
         let padding = 10;
         c.fillText(this.name, this.x - textWidth - padding, this.y + this.height / 1.5);
@@ -269,7 +269,7 @@ class slider {
         this.backgorundRect.draw();
         this.nobSquare.draw();
 
-        if (colision(mouse, this.backgorundRect)) c.font = "small-caps 11px Arial", c.fillStyle = "rgb(189, 153, 232)";
+        if (colision(mouse, this.backgorundRect)) c.font = "small-caps 11px Arial", c.fillStyle = "RGB(0, 255, 255)";
         let textWidth = c.measureText(this.value).width;
         let padding = 10;
         c.fillText(this.value, this.x - textWidth - padding, this.y + this.height / 1.5);
@@ -277,8 +277,8 @@ class slider {
     }
     update(dt) {
 
-        if (colision(mouse, this.backgorundRect)) this.backgorundRect.color = "rgba(211, 211, 211, 0.75)", this.nobSquare.color = "rgb(189, 153, 232, 0.75)";
-        else this.backgorundRect.color = "rgba(211, 211, 211, 0.5)", this.nobSquare.color = "rgb(189, 153, 232, 0.5)";
+        if (colision(mouse, this.backgorundRect)) this.backgorundRect.color = "rgba(211, 211, 211, 0.75)", this.nobSquare.color = "RGB(0, 255, 255)";
+        else this.backgorundRect.color = "rgba(211, 211, 211, 0.5)", this.nobSquare.color = "orange";
 
         if (colision(mouse, this.backgorundRect) && mouse.pressed) this.nobSquare.x = mouse.x;
         this.value = Math.round(((this.nobSquare.x - this.backgorundRect.x) / this.backgorundRect.width) * this.interval);
@@ -338,12 +338,15 @@ editor.UI = {
     showGridSlider: new onOff_slider(window.innerWidth - 250, window.innerHeight - 60, 20, "Grid"),
     rotationSlider: new rotation_slider(window.innerWidth - 250, window.innerHeight - 100, 100, 20, 3, "Rotation"),
     hideCamera: new onOff_slider(window.innerWidth - 250, window.innerHeight - 20, 20, "Hide camera"),
+    cameraState: true,
     mousePoint: {
         x: undefined,
         y: undefined,
         set: false
     },
     showInformation: false,
+    movmentVector2D: new vector2D(0, 0),
+    amount: 500,
     startFloor: new premade_floor(600, 300, 0),
     parentFolders: [new folder(window.innerWidth - 200, 50, "Floor", [new folder(window.innerWidth - 200 - 40, 50 + 50, "Premade", [new floor_types_premade(window.innerWidth - 200 - 80, 135, 0),
                                                                                                                                     new floor_types_premade(window.innerWidth - 200 - 80, 160, 1),
@@ -433,7 +436,7 @@ editor.UI = {
         utilityObjects.push(this.mouseRect);
         utilityObjects.push(thrash);
         utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider, this.hideCamera);
-        physicalObjects.push(this.startFloor);
+        //physicalObjects.push(this.startFloor);
     },
     update: function(dt) {
         if(this.changeBackgroundSlider.value == "true") ensureGrid();
@@ -445,8 +448,32 @@ editor.UI = {
             if (object.chosen && this.showInformationSlider.value == "true") object.infomrationBox.show = true;
             else object.infomrationBox.show = false;
             if (object.chosen && controller.ctrl) object.zIndex = this.changeZindexSlider.value;
-
+            //moveObjects
+            if(object != hero) {
+                if (controller.arrowUp && !controller.arrowDown){
+                     this.movmentVector2D.dy -= this.amount;
+                     let vector = this.movmentVector2D.limitResultant();
+                     object.y += vector.dy * dt;
+                }
+                if (controller.arrowDown && !controller.arrowUp){
+                    this.movmentVector2D.dy += this.amount;
+                    let vector = this.movmentVector2D.limitResultant();
+                    object.y += vector.dy * dt;
+                };
+                if (controller.arrowLeft && !controller.arrowRight){
+                    this.movmentVector2D.dx -= this.amount;
+                    let vector = this.movmentVector2D.limitResultant();
+                    object.x += vector.dx * dt;
+                };
+                if (controller.arrowRight && !controller.arrowLeft){
+                    this.movmentVector2D.dx += this.amount;
+                    let vector = this.movmentVector2D.limitResultant();
+                    object.x += vector.dx * dt;
+                };
+            }
+            this.movmentVector2D.update();
         });
+        
         physicalObjects.forEach(object => {
             if (!this.followMouse) {
                 if (!colision(this.mouseRect, object.hitbox) && mouse.pressed) object.chosen = false;
@@ -470,28 +497,9 @@ editor.UI = {
             utilityObjects.push(this.changeBackgroundSlider, this.showInformationSlider, this.zIndexSlider, this.spawnAmountSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider, this.hideCamera);
         }
         if(this.hideCamera.value == "false")  {
-            c.strokeStyle = "orange";
-            c.beginPath();
-            c.moveTo(window.innerWidth / 2, 0);
-            c.lineTo(window.innerWidth / 2, window.innerHeight);
-            c.stroke();
-
-            c.beginPath();
-            c.moveTo(0, window.innerHeight / 2);
-            c.lineTo(window.innerWidth, window.innerHeight / 2);
-            c.stroke();
-            game.camera.boundBox.draw();
-            game.camera.draw();
-            c.beginPath();
-            c.moveTo(game.camera.x, game.camera.y + game.camera.height/2);
-            c.lineTo(game.camera.x + game.camera.width, game.camera.y + game.camera.height/2);
-            c.stroke();
-
-            c.beginPath();
-            c.moveTo(game.camera.x + game.camera.width/2, game.camera.y);
-            c.lineTo(game.camera.x + game.camera.width/2, game.camera.y + game.camera.height);
-            c.stroke();
+            this.cameraState = false;
         }
+        else this.cameraState = true;
         if (!mouse.pressed) {
             this.followMouse = false;
             mouse.follow = false
@@ -563,8 +571,8 @@ function folder(x, y, name, content, Subfolder) {
     this.draw = function() {
         this.currentImage.draw();
         c.font = "small-caps 10px Arial";
-        c.fillStyle = "black";
-        if (colision(mouse, this.hitbox)) c.font = "small-caps 11px Arial", c.fillStyle = "rgb(189, 153, 232)";
+        c.fillStyle = "aqua";
+        if (colision(mouse, this.hitbox)) c.font = "small-caps 11px Arial", c.fillStyle = "orange";
         if(this.Subfolder) {
             let textWidth = c.measureText(this.name).width;
             let padding = 10;
@@ -605,23 +613,26 @@ function extractData(name) {
     let object = physicalObjects[i];
     if(object === hero) continue;
     let type = object.constructor.name;
-    let string;
-
-    if (i === physicalObjects.length - 1) string = "[" + "'" + type + "'" + ", " + object.x + ", " + object.y + ", " + object.type + ", " + object.zIndex + "]";
-    else string = "[" + "'" + type + "'" + ", " + object.x + ", " + object.y + ", "  + object.type + "," + object.zIndex + "], ";
-    if(i === 0) string = "let " + name + " = [" + string;
-    if(i === physicalObjects.length - 1) string = string + "];";
+    let string = "[" + "'" + type + "'" + ", " + object.x + ", " + object.y + ", "  + object.type + ", " + object.zIndex + "], ";
     
+    if(i === 0) string = "let " + name + " = [" + string;
     console.log(string);
   }
+  let string = "['game.camera.boundBox', " + game.camera.boundBox.x + ", "  + game.camera.boundBox.y + ", " + game.camera.boundBox.width +", " + game.camera.boundBox.height + "]";
+  string = string + "];";
+  console.log(string)
 }
 
 function buildRoomFromData(data) {
   physicalObjects = []; // clear all old objects
   physicalObjects.push(hero);
+  //Handle camera
   for(let i = 0; i < data.length; i++) {
-    let str = "physicalObjects.push(" + "new " + data[i][0] + "("+data[i][1] + ", " + data[i][2] + ", "+ data[i][3] + ", " + data[i][4] + "));";
-    eval(str);
+    if (data[i][0] == 'game.camera.boundBox') game.camera.boundBox = new rectAngle(data[i][1], data[i][2], data[i][3], data[i][4], "orange", false);
+    else {
+        let str = "physicalObjects.push(" + "new " + data[i][0] + "("+data[i][1] + ", " + data[i][2] + ", "+ data[i][3] + ", " + data[i][4] + "));";
+        eval(str);
+    }
   }
 }
 
@@ -656,4 +667,30 @@ function initRoom(objects, camera) {
     });
 }
 
+function drawCamera(state){
+    if(!state) {
+        c.strokeStyle = "orange";
+        c.beginPath();
+        c.moveTo(window.innerWidth / 2, 0);
+        c.lineTo(window.innerWidth / 2, window.innerHeight);
+        c.stroke();
 
+        c.beginPath();
+        c.moveTo(0, window.innerHeight / 2);
+        c.lineTo(window.innerWidth, window.innerHeight / 2);
+        c.stroke();
+        game.camera.boundBox.draw();
+        game.camera.draw();
+        c.beginPath();
+        c.moveTo(game.camera.x, game.camera.y + game.camera.height / 2);
+        c.lineTo(game.camera.x + game.camera.width, game.camera.y + game.camera.height / 2);
+        c.stroke();
+
+        c.beginPath();
+        c.moveTo(game.camera.x + game.camera.width / 2, game.camera.y);
+        c.lineTo(game.camera.x + game.camera.width / 2, game.camera.y + game.camera.height);
+        c.stroke();
+    }
+}
+
+buildRoomFromData(test_map_2);

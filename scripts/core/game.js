@@ -23,11 +23,11 @@ game.utils = {
             object.draw();
         });
     },
-    update: function () {
+    update: function (dt) {
         utilityObjects.forEach(object => {
-            object.update();
+            object.update(dt);
         });
-        editor.UI.update();
+        editor.UI.update(dt);
     }
 }
 
@@ -54,7 +54,6 @@ game.camera.update = function (dt) {
     }   
     else {
         //Motion effect
-
         //Hardcoded camera center values;
         this.lastPos.x += ((hero.x - 1.18*game.camera.width) - this.lastPos.x) * 0.01;
         if(window.innerHeight == 969) this.lastPos.y += ((hero.y - game.camera.height/1.8) - this.lastPos.y) * 0.01;
@@ -76,8 +75,10 @@ game.draw = function () {
     });
     physicalObjects.forEach(object => {
         object.draw();
+        object.infomrationBox.draw(object.hitbox, object);
     });
     drawGrid();
+    drawCamera(editor.UI.cameraState);
     if (game.utils.enabled) game.utils.draw();
     //mouse.draw();
 }
@@ -89,7 +90,7 @@ game.update = function (dt) {
     physicalObjects.forEach(object => {
         object.update(dt);
     });
-    if (game.utils.enabled) game.utils.update();
+    if (game.utils.enabled) game.utils.update(dt);
     game.camera.update(dt);
 }
 
