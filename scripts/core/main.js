@@ -1,2 +1,3 @@
 game.init();
-game.animate();
+game.animate(undefined);
+

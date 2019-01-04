@@ -162,6 +162,7 @@ function createImages(spriteSheet, amountX, amountY, scale, reverse) {
             }
         }
     }
+    if (Images.length == 0) location.reload();
     return Images;
 }
 

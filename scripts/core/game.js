@@ -1,12 +1,13 @@
 let game = new Object();
 game.start = undefined;
 game.background = {
-    color: "white"
+    color: "black"
 };
 
 game.init = function () {
     game.start = Date.now();
     editor.UI.init();
+    buildRoomFromData(test_map_2);
 }
 
 game.loop = {
@@ -27,7 +28,6 @@ game.utils = {
         utilityObjects.forEach(object => {
             object.update(dt);
         });
-        editor.UI.update(dt);
     }
 }
 
@@ -63,11 +63,13 @@ game.camera.update = function (dt) {
         game.camera.y = this.lastPos.y;
     }
     //Check bounds of caemra
-    if (game.camera.x < game.camera.boundBox.x) game.camera.x = game.camera.boundBox.x;
+    if (game.camera.x < game.camera.boundBox.x) game.camera.x = game.camera.boundBox.x; 
     if (game.camera.y < game.camera.boundBox.y) game.camera.y = game.camera.boundBox.y;
     if (game.camera.x + game.camera.width > game.camera.boundBox.x + game.camera.boundBox.width) game.camera.x = game.camera.boundBox.x + game.camera.boundBox.width - game.camera.width;
     if (game.camera.y + game.camera.height > game.camera.boundBox.y + game.camera.boundBox.height) game.camera.y = game.camera.boundBox.y + game.camera.boundBox.height - game.camera.height;
 }
+
+
 
 game.draw = function () {
     physicalObjects.sort(function (a, b) {
@@ -77,9 +79,13 @@ game.draw = function () {
         object.draw();
         object.infomrationBox.draw(object.hitbox, object);
     });
-    drawGrid();
-    drawCamera(editor.UI.cameraState);
-    if (game.utils.enabled) game.utils.draw();
+    if (editor.UI.inited) {
+        if (game.utils.enabled) {
+            drawGrid();
+            drawCamera(editor.UI.cameraState);
+            game.utils.draw();
+        }
+    }
     //mouse.draw();
 }
 
@@ -90,7 +96,10 @@ game.update = function (dt) {
     physicalObjects.forEach(object => {
         object.update(dt);
     });
-    if (game.utils.enabled) game.utils.update(dt);
+    if (game.utils.enabled) {
+        if (editor.UI.inited) editor.UI.update(dt);
+        game.utils.update(dt);   
+    }
     game.camera.update(dt);
 }
 

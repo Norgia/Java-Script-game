@@ -1,4 +1,26 @@
+//Path Types
+let Dead_end_bottom = [];
+let Dead_end_left = [];
+let Dead_end_top = [];
+let Dead_end_right = [];
 
+let Vertical_path = [];
+let Horizontal_path = [];
+let Down_and_right = [];
+let Down_and_left = [];
+let Up_and_right = [];
+let Up_and_left = [];
+
+let Down_and_left_and_right = [];
+let Down_and_up_and_left = [];
+let Up_and_left_and_right = [];
+let Down_and_up_and_right = [];
+
+let Four_way_cross = [];
+
+///////////////////////////////////////////////////////////////////////
+
+//Premade Rooms
 let test_map = [
 ['premade_floor', 384, 192, 0, 0],
 ['premade_floor', 256, 64, 3, 0],
@@ -320,3 +342,16 @@ let test_map_2 = [
 ['wall', 460, 588, 42, 9],
 ['game.camera.boundBox', 0, -200, 1920, 1119]
 ];
+
+//Room segments
+let TopLeft = ["TopLeft"];
+let TopMid = ["TopMid"];
+let TopRight = ["TopRight"];
+let MidLeft = ["MidLeft"];
+let MidMid = ["MidMid"];
+let MidRight = ["MidRight"];
+let BottomLeft = ["BottomLeft"];
+let BottomMid = ["BottomMid"];
+let BottomRight = ["BottomRight"];
+
+///////////////////////////////////////////////////////////////////////

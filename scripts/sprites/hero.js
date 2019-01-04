@@ -256,7 +256,7 @@ class weapon extends object {
             c.restore();
         }
         else {
-            c.drawImage(this.currentImage, this.x, this.y, this.currentImage.width, this.currentImage.height);
+            c.drawImage(this.currentImage, this.dest.x, this.dest.y, this.currentImage.width, this.currentImage.height);
         }
     }
 

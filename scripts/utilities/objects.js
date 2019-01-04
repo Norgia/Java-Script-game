@@ -55,7 +55,7 @@ class object {
         //this.infomrationBox.draw(this.hitbox, this);
     }
     update(dt) {
-        if (this.chosen) {
+        if (this.chosen && game.utils.enabled) {
             this.infomrationBox.update(dt, this);
             this.hitbox.draw();
             if (editor.UI.followMouse) {
@@ -71,8 +71,8 @@ class object {
              this.distanceX = undefined;
              this.distanceY = undefined;
         }
-        this.dest.x = this.x - game.camera.x;
-        this.dest.y = this.y - game.camera.y;
+        this.dest.x = Math.round(this.x - game.camera.x);
+        this.dest.y = Math.round(this.y - game.camera.y);
     }
     updateImgHitbox(imageFilename, scale) {
         let fullname = imageFilename + ".png";

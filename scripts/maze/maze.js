@@ -162,9 +162,47 @@ Maze.prototype.roomTypes = function() {
 	//return allTypes;
 }
 
-var mazeW = 7, mazeH = 7;
-let test = new Maze(mazeW, mazeH, "nw");
-test.createRooms(10);
-test.roomTypes();
+Maze.prototype.convert = function () {
+	let map = [];
+	let roomTypes = this.roomTypes();
+	let isRoom = Boolean;
 
-utilityObjects.push(test);
+	for(let i = 0; i < roomTypes.length; i++) {
+		let room = roomTypes[i];
+		
+		if(room[3] == undefined) isRoom = false;
+		else isRoom = true;
+
+			let type = room[2];
+			if (type === "Dead end bottom") {
+				if (!isRoom) map.push(Dead_end_bottom[(randomIntFromRange(0, Dead_end_bottom.length - 1))]);
+				else map.push(Dead_end_bottom[(randomIntFromRange(0, Dead_end_bottom.length - 1))]);
+			}
+			else if (type === "Dead end left") map.push(Dead_end_left[(randomIntFromRange(0, Dead_end_left.length - 1))]);
+			else if (type === "Dead end top") map.push(Dead_end_top[(randomIntFromRange(0, Dead_end_top.length - 1))]);
+			else if (type === "Dead end right") map.push(Dead_end_right[(randomIntFromRange(0, Dead_end_right.length - 1))]);
+			else if (type === "Vertical path") map.push(Vertical_path[(randomIntFromRange(0, Vertical_path.length - 1))]);
+			else if (type === "Horizontal path") map.push(Horizontal_path[(randomIntFromRange(0, Horizontal_path.length - 1))]);
+			else if (type === "Down and right") map.push(Down_and_right[(randomIntFromRange(0, Down_and_right.length - 1))]);
+			else if (type === "Down and left") map.push(Down_and_left[(randomIntFromRange(0, Down_and_left.length - 1))]);
+			else if (type === "Up and right") map.push(Up_and_right[(randomIntFromRange(0, Up_and_right.length - 1))]);
+			else if (type === "Up and left") map.push(Up_and_left[(randomIntFromRange(0, Up_and_left.length - 1))]);
+			else if (type === "Down and left and right") map.push(Down_and_left_and_right[(randomIntFromRange(0, Down_and_left_and_right.length - 1))]);
+			else if (type === "Down and up and left") map.push(Down_and_up_and_left[(randomIntFromRange(0, Down_and_up_and_left.length - 1))]);
+			else if (type === "Up and left and right") map.push(Up_and_left_and_right[(randomIntFromRange(0, Up_and_left_and_right.length - 1))]);
+			else if (type === "Down and up and right") map.push(Down_and_up_and_right[(randomIntFromRange(0, Down_and_up_and_right.length - 1))]);
+			//else(type === "Four way cross") map.push(Four_way_cross[(randomIntFromRange(0, Four_way_cross.length - 1))]);
+	}
+}
+
+function buildLevel(mazeDimensions, rooms) {
+	let mazeW = mazeDimensions;
+	let mazeH = mazeDimensions;
+	let mazeMap = new Maze(mazeW, mazeH, "nw");
+	mazeMap.createRooms(rooms);
+}
+
+let mazeMap = new Maze(6, 6, "nw");
+utilityObjects.push(mazeMap);
+mazeMap.createRooms(4);
+mazeMap.roomTypes();

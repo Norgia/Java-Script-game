@@ -13,6 +13,7 @@ ___________________________________________
 -design individual rooms ☐
 -level editor ☐
 -random algorithm ☐
+-pause game when tabed out (prevent requestAnimationFrame from pausing)
 
 Example: (https://imgur.com/a/ckR7f3v)
 

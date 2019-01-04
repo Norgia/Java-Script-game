@@ -24,6 +24,7 @@ class item {
                 }
             }
         }
+        if (Images.length == 0) location.reload();
         return Images;
     }
     draw() {
@@ -347,6 +348,7 @@ editor.UI = {
     showInformation: false,
     movmentVector2D: new vector2D(0, 0),
     amount: 500,
+    inited: false,
     startFloor: new premade_floor(600, 300, 0),
     parentFolders: [new folder(window.innerWidth - 200, 50, "Floor", [new folder(window.innerWidth - 200 - 40, 50 + 50, "Premade", [new floor_types_premade(window.innerWidth - 200 - 80, 135, 0),
                                                                                                                                     new floor_types_premade(window.innerWidth - 200 - 80, 160, 1),
@@ -437,6 +439,7 @@ editor.UI = {
         utilityObjects.push(thrash);
         utilityObjects.push(this.zIndexSlider, this.spawnAmountSlider, this.showInformationSlider, this.changeBackgroundSlider, this.hideSlider, this.rotationSlider, this.changeZindexSlider, this.showGridSlider, this.hideCamera);
         //physicalObjects.push(this.startFloor);
+        this.inited = true;
     },
     update: function(dt) {
         if(this.changeBackgroundSlider.value == "true") ensureGrid();
@@ -608,65 +611,6 @@ function folder(x, y, name, content, Subfolder) {
     }
 }
 
-function extractData(name) {
-    for(let i = 0; i < physicalObjects.length; i++) {
-    let object = physicalObjects[i];
-    if(object === hero) continue;
-    let type = object.constructor.name;
-    let string = "[" + "'" + type + "'" + ", " + object.x + ", " + object.y + ", "  + object.type + ", " + object.zIndex + "], ";
-    
-    if(i === 0) string = "let " + name + " = [" + string;
-    console.log(string);
-  }
-  let string = "['game.camera.boundBox', " + game.camera.boundBox.x + ", "  + game.camera.boundBox.y + ", " + game.camera.boundBox.width +", " + game.camera.boundBox.height + "]";
-  string = string + "];";
-  console.log(string)
-}
-
-function buildRoomFromData(data) {
-  physicalObjects = []; // clear all old objects
-  physicalObjects.push(hero);
-  //Handle camera
-  for(let i = 0; i < data.length; i++) {
-    if (data[i][0] == 'game.camera.boundBox') game.camera.boundBox = new rectAngle(data[i][1], data[i][2], data[i][3], data[i][4], "orange", false);
-    else {
-        let str = "physicalObjects.push(" + "new " + data[i][0] + "("+data[i][1] + ", " + data[i][2] + ", "+ data[i][3] + ", " + data[i][4] + "));";
-        eval(str);
-    }
-  }
-}
-
-function initRoom(objects, camera) {
-    //Build camera
-    let minX = Infinity;
-    let maxX = 0;
-
-    let minY = Infinity;
-    let maxY = 0;
-
-    objects.forEach(object => {
-        if(object instanceof static_tile || object instanceof dynamic_tile || object instanceof premade_floor) {
-            if(object.x < minX) minX = object.x;
-            if(object.y < minY) minY = object.y;
-            if(object.x + object.hitbox.width > maxX) maxX = object.x + object.hitbox.width;
-            if(object.y + object.hitbox.height > maxY) maxY = object.y + object.hitbox.height;
-        }
-    });
-
-    let roomCenterX = (minX + maxX)/2
-    let roomCenterY = (minY + maxY)/2;
-
-    let factor = -1;
-    let distanceX = roomCenterX-1920/2;
-    let distanceY = roomCenterY-1080/2;
-
-    //Translate to center of window
-    objects.forEach(object => {
-        object.x += distanceX*factor;
-        object.y += distanceY*factor;
-    });
-}
-
 function drawCamera(state){
     if(!state) {
         c.strokeStyle = "orange";
@@ -692,5 +636,3 @@ function drawCamera(state){
         c.stroke();
     }
 }
-
-buildRoomFromData(test_map_2);
