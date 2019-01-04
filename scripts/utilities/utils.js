@@ -225,3 +225,18 @@ function drawGrid() {
     if (editor.UI.showGridSlider.value == "true") c.drawImage(grid_image, 0, 0);
     c.globalAlpha = 1;
 };
+
+function arrayClone(arr) {
+    var i, copy;
+    if (Array.isArray(arr)) {
+        copy = arr.slice(0);
+        for (i = 0; i < copy.length; i++) {
+            copy[i] = arrayClone(copy[i]);
+        }
+        return copy;
+    } else if (typeof arr === 'object') {
+        throw 'Cannot clone array containing an object!';
+    } else {
+        return arr;
+    }
+}

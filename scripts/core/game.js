@@ -7,7 +7,7 @@ game.background = {
 game.init = function () {
     game.start = Date.now();
     editor.UI.init();
-    buildRoomFromData(test_map_2);
+    //buildRoomFromData(test_map_2);
 }
 
 game.loop = {
@@ -63,10 +63,10 @@ game.camera.update = function (dt) {
         game.camera.y = this.lastPos.y;
     }
     //Check bounds of caemra
-    if (game.camera.x < game.camera.boundBox.x) game.camera.x = game.camera.boundBox.x; 
-    if (game.camera.y < game.camera.boundBox.y) game.camera.y = game.camera.boundBox.y;
-    if (game.camera.x + game.camera.width > game.camera.boundBox.x + game.camera.boundBox.width) game.camera.x = game.camera.boundBox.x + game.camera.boundBox.width - game.camera.width;
-    if (game.camera.y + game.camera.height > game.camera.boundBox.y + game.camera.boundBox.height) game.camera.y = game.camera.boundBox.y + game.camera.boundBox.height - game.camera.height;
+    //if (game.camera.x < game.camera.boundBox.x) game.camera.x = game.camera.boundBox.x; 
+    //if (game.camera.y < game.camera.boundBox.y) game.camera.y = game.camera.boundBox.y;
+    //if (game.camera.x + game.camera.width > game.camera.boundBox.x + game.camera.boundBox.width) game.camera.x = game.camera.boundBox.x + game.camera.boundBox.width - game.camera.width;
+    //if (game.camera.y + game.camera.height > game.camera.boundBox.y + game.camera.boundBox.height) game.camera.y = game.camera.boundBox.y + game.camera.boundBox.height - game.camera.height;
 }
 
 

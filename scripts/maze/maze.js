@@ -158,7 +158,7 @@ Maze.prototype.roomTypes = function() {
 			allTypes.push(type);
 		}
 	}
-	console.log(allTypes);
+	//console.log(allTypes);
 	//return allTypes;
 }
 

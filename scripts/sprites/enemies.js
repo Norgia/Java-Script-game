@@ -175,7 +175,7 @@ class little_goblin extends enemy {
     }
 }
 
-for (let i = 0; i < 10; i++) {
+/*for (let i = 0; i < 10; i++) {
     x = Math.random() * window.innerWidth;
     y = Math.random() * window.innerHeight;
     physicalObjects.push(new orc(x, y));
@@ -184,4 +184,4 @@ for (let i = 0; i < 10; i++) {
     physicalObjects.push(new little_goblin(x, y));
     physicalObjects.push(new little_goblin(x, y));
     physicalObjects.push(new little_goblin(x, y));
-}
+}*/
