@@ -6,7 +6,7 @@ game.background = {
 
 game.init = function () {
     game.start = Date.now();
-    editor.UI.init();
+    //editor.UI.init();
     buildRoomFromData(test_map_2);
 }
 

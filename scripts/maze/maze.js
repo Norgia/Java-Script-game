@@ -100,10 +100,10 @@ Maze.prototype.draw = function() {
 		if(this.gridMap[y] == undefined) continue;
 		for(var x = 0; x < this.gridW; ++x)
 		{
-			c.fillStyle = "#000000";
-			if(this.gridMap[x][y]==0) { c.fillRect(10 * x, 10 * y, 10, 10); }
+			c.fillStyle = "rgba(255, 165, 0, 0.7)";
+			if(this.gridMap[x][y]==0) { c.fillRect(10* x, 10 * y, 10, 10); }
 			
-			c.fillStyle = "blue";
+			c.fillStyle = "rgba(0, 255, 255, 0.7)";
 			if (this.gridMap[x][y]==2) { c.fillRect(10 * x, 10 * y, 10, 10);}
 		}
 	}
@@ -203,6 +203,6 @@ function buildLevel(mazeDimensions, rooms) {
 }
 
 let mazeMap = new Maze(6, 6, "nw");
-utilityObjects.push(mazeMap);
-mazeMap.createRooms(4);
+//utilityObjects.push(mazeMap);
+mazeMap.createRooms(3);
 mazeMap.roomTypes();

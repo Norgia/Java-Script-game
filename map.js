@@ -344,14 +344,14 @@ let test_map_2 = [
 ];
 
 //Room segments
-let TopLeft = ["TopLeft"];
-let TopMid = ["TopMid"];
-let TopRight = ["TopRight"];
-let MidLeft = ["MidLeft"];
-let MidMid = ["MidMid"];
-let MidRight = ["MidRight"];
-let BottomLeft = ["BottomLeft"];
-let BottomMid = ["BottomMid"];
-let BottomRight = ["BottomRight"];
+let TopLeft = [];
+let TopMid = [];
+let TopRight = [];
+let MidLeft = [];
+let MidMid = [];
+let MidRight = [];
+let BottomLeft = [];
+let BottomMid = [];
+let BottomRight = [];
 
 ///////////////////////////////////////////////////////////////////////

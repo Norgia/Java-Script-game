@@ -347,8 +347,10 @@ editor.UI = {
     },
     showInformation: false,
     movmentVector2D: new vector2D(0, 0),
-    amount: 500,
+    amount: 100,
     inited: false,
+    grid: true,
+    moving: false,
     startFloor: new premade_floor(600, 300, 0),
     parentFolders: [new folder(window.innerWidth - 200, 50, "Floor", [new folder(window.innerWidth - 200 - 40, 50 + 50, "Premade", [new floor_types_premade(window.innerWidth - 200 - 80, 135, 0),
                                                                                                                                     new floor_types_premade(window.innerWidth - 200 - 80, 160, 1),
@@ -442,7 +444,7 @@ editor.UI = {
         this.inited = true;
     },
     update: function(dt) {
-        if(this.changeBackgroundSlider.value == "true") ensureGrid();
+
         physicalObjects.forEach(object => {
             if (object.chosen && colision(mouse, object.hitbox) && editor.UI.setStartPoint && mouse.pressed) {
                 this.followMouse = true;
@@ -454,21 +456,25 @@ editor.UI = {
             //moveObjects
             if(object != hero) {
                 if (controller.arrowUp && !controller.arrowDown){
-                     this.movmentVector2D.dy -= this.amount;
-                     let vector = this.movmentVector2D.limitResultant();
-                     object.y += vector.dy * dt;
+                    this.moving = true;
+                    this.movmentVector2D.dy -= this.amount;
+                    let vector = this.movmentVector2D.limitResultant();
+                    object.y += vector.dy * dt;
                 }
                 if (controller.arrowDown && !controller.arrowUp){
+                    this.moving = true;
                     this.movmentVector2D.dy += this.amount;
                     let vector = this.movmentVector2D.limitResultant();
                     object.y += vector.dy * dt;
                 };
                 if (controller.arrowLeft && !controller.arrowRight){
+                    this.moving = true;
                     this.movmentVector2D.dx -= this.amount;
                     let vector = this.movmentVector2D.limitResultant();
                     object.x += vector.dx * dt;
                 };
                 if (controller.arrowRight && !controller.arrowLeft){
+                    this.moving = true;
                     this.movmentVector2D.dx += this.amount;
                     let vector = this.movmentVector2D.limitResultant();
                     object.x += vector.dx * dt;
@@ -476,7 +482,10 @@ editor.UI = {
             }
             this.movmentVector2D.update();
         });
-        
+        if (this.changeBackgroundSlider.value == "true" && !this.moving) this.grid = true;
+        else this.grid = false;
+        ensureGrid(this.grid);
+        this.moving = false;
         physicalObjects.forEach(object => {
             if (!this.followMouse) {
                 if (!colision(this.mouseRect, object.hitbox) && mouse.pressed) object.chosen = false;
@@ -535,24 +544,26 @@ editor.UI = {
     }
 }
 
-function ensureGrid() {
-    let padding = 32;
-    for(let i = 0; i < physicalObjects.length; i++) {
-        let object = physicalObjects[i];
-        if ((object instanceof static_tile || object instanceof dynamic_tile) && object.hitbox.width % 32 === 0 && object.hitbox.height % 32 === 0) {
-            object.x = Math.round(object.x);
-            object.y = Math.round(object.y);
-            let zeroLevelX = object.hitbox.x;
-            let zeroLevelY = object.hitbox.y;
-            if (zeroLevelX % padding >= 15 && zeroLevelX % padding < 32) object.x += 1;
-            if (zeroLevelX % padding < 15 && zeroLevelX % padding > 0) object.x -=1;
-            if (zeroLevelY % padding >= 15 && zeroLevelY % padding < 32) object.y += 1;
-            if (zeroLevelY % padding < 15 && zeroLevelY % padding > 0) object.y -= 1;
+function ensureGrid(state) {
+    if(state) {
+        let padding = 32;
+        for(let i = 0; i < physicalObjects.length; i++) {
+            let object = physicalObjects[i];
+            if ((object instanceof static_tile || object instanceof dynamic_tile) && object.hitbox.width % 32 === 0 && object.hitbox.height % 32 === 0) {
+                object.x = Math.round(object.x);
+                object.y = Math.round(object.y);
+                let zeroLevelX = object.hitbox.x;
+                let zeroLevelY = object.hitbox.y;
+                if (zeroLevelX % padding >= 15 && zeroLevelX % padding < 32) object.x += 1;
+                if (zeroLevelX % padding < 15 && zeroLevelX % padding > 0) object.x -=1;
+                if (zeroLevelY % padding >= 15 && zeroLevelY % padding < 32) object.y += 1;
+                if (zeroLevelY % padding < 15 && zeroLevelY % padding > 0) object.y -= 1;
 
-            if (zeroLevelX % padding <= -15 && zeroLevelX % padding > -32) object.x -= 1;
-            if (zeroLevelX % padding > -15 && zeroLevelX % padding < 0) object.x += 1;
-            if (zeroLevelY % padding <= -15 && zeroLevelY % padding > -32) object.y -= 1;
-            if (zeroLevelY % padding > -15 && zeroLevelY % padding < -0) object.y += 1;
+                if (zeroLevelX % padding <= -15 && zeroLevelX % padding > -32) object.x -= 1;
+                if (zeroLevelX % padding > -15 && zeroLevelX % padding < 0) object.x += 1;
+                if (zeroLevelY % padding <= -15 && zeroLevelY % padding > -32) object.y -= 1;
+                if (zeroLevelY % padding > -15 && zeroLevelY % padding < -0) object.y += 1;
+            }
         }
     }
 }
