@@ -1,22 +1,13 @@
 //Path Types
-let Dead_end_bottom = [];
-let Dead_end_left = [];
-let Dead_end_top = [];
-let Dead_end_right = [];
-
-let Vertical_path = [];
-let Horizontal_path = [];
-let Down_and_right = [];
-let Down_and_left = [];
-let Up_and_right = [];
-let Up_and_left = [];
-
-let Down_and_left_and_right = [];
-let Down_and_up_and_left = [];
-let Up_and_left_and_right = [];
-let Down_and_up_and_right = [];
-
-let Four_way_cross = [];
+let WallLeft_Path = [];
+let WallTop_Path = [];
+let WallRight_Path = [];
+let WallBottom_Path = [];
+let Center_Path = [];
+let TopLeftCorner_Path = [];
+let TopRightCorner_Path = [];
+let BottomLeftCorner_Path = [];
+let BottomRightCorner_Path = [];
 
 ///////////////////////////////////////////////////////////////////////
 

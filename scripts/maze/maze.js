@@ -159,7 +159,7 @@ Maze.prototype.roomTypes = function() {
 		}
 	}
 	//console.log(allTypes);
-	//return allTypes;
+	return allTypes;
 }
 
 Maze.prototype.convert = function () {
@@ -203,6 +203,6 @@ function buildLevel(mazeDimensions, rooms) {
 }
 
 let mazeMap = new Maze(6, 6, "nw");
-//utilityObjects.push(mazeMap);
+utilityObjects.push(mazeMap);
 mazeMap.createRooms(3);
 mazeMap.roomTypes();
