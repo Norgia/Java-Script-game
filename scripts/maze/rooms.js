@@ -28,9 +28,9 @@ function updateRoomData() {
     return roomData
 }
 
-function buildRoomFromData(data) {
-    physicalObjects = []; // clear all old objects
-    physicalObjects.push(hero);
+function buildRoomFromData(data, clear) {
+    // clear all old objects
+    if (clear) physicalObjects = [], physicalObjects.push(hero);
     //Handle camera
     for (let i = 0; i < data.length; i++) {
         if (data[i][0] == 'game.camera.boundBox') game.camera.boundBox = new rectAngle(data[i][1], data[i][2], data[i][3], data[i][4], "orange", false);
@@ -211,42 +211,42 @@ function createPathFromSegments(width, height, type) {
             //Top Mid
             else if (y == startY && x > startX && x < intervalX) {
                 let clone = arrayClone(pieces[1]);
-                room.push(clone[randomIntFromRange(0, pieces[1].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[1].length - 1)]);
             }
             //Top Right Corner
             else if (y == startY && x == intervalX) {
                 let clone = arrayClone(pieces[2]);
-                room.push(clone[randomIntFromRange(0, pieces[2].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[2].length - 1)]);
             }
             //Mid Left
             else if (y > startY && y < intervalY && x == startX) {
                 let clone = arrayClone(pieces[3]);
-                room.push(clone[randomIntFromRange(0, pieces[3].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[3].length - 1)]);
             }
             //Mid Mid
             else if (y > startY && y < intervalY && x > startX && x < intervalX) {
                 let clone = arrayClone(pieces[4]);
-                room.push(clone[randomIntFromRange(0, pieces[4].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[4].length - 1)]);
             }
             //Mid Right
             else if (y > startY && y < intervalY && x == intervalX) {
                 let clone = arrayClone(pieces[5]);
-                room.push(clone[randomIntFromRange(0, pieces[5].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[5].length - 1)]);
             }
             //Bottom Left Corner
             else if (y == intervalY && x == startX) {
                 let clone = arrayClone(pieces[6]);
-                room.push(clone[randomIntFromRange(0, pieces[6].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[6].length - 1)]);
             }
             //Bottom Mid
             else if (y == intervalY && x > startX && x < intervalX) {
                 let clone = arrayClone(pieces[7]);
-                room.push(clone[randomIntFromRange(0, pieces[7].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[7].length - 1)]);
             }
             //Bottom Right Corner
             else {
                 let clone = arrayClone(pieces[8]);
-                room.push(clone[randomIntFromRange(0, pieces[8].length - 1)]);
+                path.push(clone[randomIntFromRange(0, pieces[8].length - 1)]);
             }
         }
     }
@@ -303,9 +303,7 @@ function buildWithSegments(width, height, startX, startY, segmentWidth, segmentH
     return piceArray2D;
 }
 
-
-let testSegmentBuild = buildWithSegments(3, 3, 0, 0, 640, 640, true);
-buildRoomFromData(testSegmentBuild);
+//buildRoomFromData(buildWithSegments(3, 3, 0, 0, 576, 576, true, undefined));
 
 function switchRoom(from, too) { 
     from = updateRoomData();

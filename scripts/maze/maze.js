@@ -8,6 +8,8 @@ function Maze(w, h, bias)
 	var bias = (typeof bias=='undefined' || (bias!='ne' && bias!='nw' && bias!='sw' && bias!='se') ? 'nw' : bias);
 
 	this.build(bias);
+	this.mapWidth;
+	this.mapheight;
 }
 Maze.prototype.toGrid = function()
 {
@@ -113,7 +115,7 @@ Maze.prototype.update = function(dt) {
 
 };
 
-Maze.prototype.roomTypes = function() {
+Maze.prototype.checkTypes = function() {
 	let allTypes = [];
 	
 	for (var y = 0; y < this.gridH; ++y) {
@@ -162,47 +164,37 @@ Maze.prototype.roomTypes = function() {
 	return allTypes;
 }
 
-Maze.prototype.convert = function () {
+Maze.prototype.buildLevel = function (width, height, startX, startY, roomSegmentWidth, roomSegmentHeight, pathSegmentWidth, pathSegmentHeight) {
 	let map = [];
-	let roomTypes = this.roomTypes();
 	let isRoom = Boolean;
+	let types = this.checkTypes();
 
-	for(let i = 0; i < roomTypes.length; i++) {
-		let room = roomTypes[i];
-		
-		if(room[3] == undefined) isRoom = false;
-		else isRoom = true;
+	let currentX = startX;
+	let currentY = startY;
 
-			let type = room[2];
-			if (type === "Dead end bottom") {
-				if (!isRoom) map.push(Dead_end_bottom[(randomIntFromRange(0, Dead_end_bottom.length - 1))]);
-				else map.push(Dead_end_bottom[(randomIntFromRange(0, Dead_end_bottom.length - 1))]);
-			}
-			else if (type === "Dead end left") map.push(Dead_end_left[(randomIntFromRange(0, Dead_end_left.length - 1))]);
-			else if (type === "Dead end top") map.push(Dead_end_top[(randomIntFromRange(0, Dead_end_top.length - 1))]);
-			else if (type === "Dead end right") map.push(Dead_end_right[(randomIntFromRange(0, Dead_end_right.length - 1))]);
-			else if (type === "Vertical path") map.push(Vertical_path[(randomIntFromRange(0, Vertical_path.length - 1))]);
-			else if (type === "Horizontal path") map.push(Horizontal_path[(randomIntFromRange(0, Horizontal_path.length - 1))]);
-			else if (type === "Down and right") map.push(Down_and_right[(randomIntFromRange(0, Down_and_right.length - 1))]);
-			else if (type === "Down and left") map.push(Down_and_left[(randomIntFromRange(0, Down_and_left.length - 1))]);
-			else if (type === "Up and right") map.push(Up_and_right[(randomIntFromRange(0, Up_and_right.length - 1))]);
-			else if (type === "Up and left") map.push(Up_and_left[(randomIntFromRange(0, Up_and_left.length - 1))]);
-			else if (type === "Down and left and right") map.push(Down_and_left_and_right[(randomIntFromRange(0, Down_and_left_and_right.length - 1))]);
-			else if (type === "Down and up and left") map.push(Down_and_up_and_left[(randomIntFromRange(0, Down_and_up_and_left.length - 1))]);
-			else if (type === "Up and left and right") map.push(Up_and_left_and_right[(randomIntFromRange(0, Up_and_left_and_right.length - 1))]);
-			else if (type === "Down and up and right") map.push(Down_and_up_and_right[(randomIntFromRange(0, Down_and_up_and_right.length - 1))]);
-			//else(type === "Four way cross") map.push(Four_way_cross[(randomIntFromRange(0, Four_way_cross.length - 1))]);
+	let segmentWidth, segmentHeight;
+
+	for(let i = 0; i < types.length; i++) {
+		let mapType = types[i];
+		//Check if the mapsegment is a room
+		if (mapType[3] == undefined) isRoom = false, segmentWidth = pathSegmentWidth, segmentHeight = pathSegmentHeight;
+		else isRoom = true, segmentWidth = roomSegmentWidth, segmentHeight = roomSegmentHeight;
+
+		let factorX = mapType[0]-1;
+		let factorY = mapType[1]-1;
+
+		currentX = startX + factorX * width * segmentWidth;
+		currentY = startY + factorY * height * segmentHeight;
+
+		console.log(segmentWidth);
+
+		let mapSegment = buildWithSegments(width, height, currentX, currentY, segmentWidth, segmentHeight, isRoom, mapType[2]);
+		buildRoomFromData(mapSegment, false);
 	}
 }
 
-function buildLevel(mazeDimensions, rooms) {
-	let mazeW = mazeDimensions;
-	let mazeH = mazeDimensions;
-	let mazeMap = new Maze(mazeW, mazeH, "nw");
-	mazeMap.createRooms(rooms);
-}
-
-let mazeMap = new Maze(6, 6, "nw");
+let mazeMap = new Maze(5, 5, "nw");
 utilityObjects.push(mazeMap);
-mazeMap.createRooms(3);
-mazeMap.roomTypes();
+mazeMap.createRooms(0);
+mazeMap.checkTypes();
+mazeMap.buildLevel(3, 3, 0, 0, 576, 576, 192, 192);

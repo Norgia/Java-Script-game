@@ -206,7 +206,7 @@ class load_rooms extends item {
     }
     update(dt) {
         if (colision(mouse, this.hitbox) && !mouse.clicked && mouse.pressed) {
-            buildRoomFromData(this.data);
+            buildRoomFromData(this.data, true);
             mouse.clicked = true;
         }
     }
@@ -431,7 +431,16 @@ editor.UI = {
                                                                                                                                             new wall_builder(window.innerWidth - 200 - 80, 560, 3)
                                                                                                                                           ], true)], false), new folder(window.innerWidth - 200, 300, "Saved rooms", [
                                                                                                                                             new load_rooms(window.innerWidth - 200 - 40, 335, undefined, "test_map", test_map), 
-                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 360, undefined, "test_map_2", test_map_2)])],
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 360, undefined, "test_map_2", test_map_2),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 385, undefined, "RoomTopLeft", RoomTopLeft),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 410, undefined, "RoomTopRight", RoomTopRight),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 435, undefined, "RoomBottomLeft", RoomBottomLeft),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 460, undefined, "RoomTopMid", RoomTopMid),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 485, undefined, "RoomBottomRight", RoomBottomRight),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 510, undefined, "RoomBottomMid", RoomBottomMid),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 535, undefined, "RoomMidRight", RoomMidRight),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 560, undefined, "RoomMidLeft", RoomMidLeft),
+                                                                                                                                            new load_rooms(window.innerWidth - 200 - 40, 585, undefined, "RoomMidMid", RoomMidMid)])],
 
     init: function() {
         for(let i = 0; i < this.parentFolders.length; i++) {
